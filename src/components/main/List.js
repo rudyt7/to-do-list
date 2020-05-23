@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './List.css';
 
 import ListItem from './ListItem';
@@ -19,16 +19,15 @@ const List = () => {
 	};
 
 	const AddToDoHandler = (task) => {
-		setToDoList((prevState) => [
-			...prevState,
-			{ title: 'Title', description: 'todo' },
-		]);
-		console.log(toDoList);
+		setToDoList((prevState) => [...prevState, task]);
 	};
 
 	const ListJsx = toDoList.map((toDoItem) => {
 		return (
-			<ListItem title={toDoItem.title} key={Math.random()}>
+			<ListItem
+				title={toDoItem.title}
+				key={Math.random().toString() + toDoItem.date}
+			>
 				{toDoItem.description}
 			</ListItem>
 		);

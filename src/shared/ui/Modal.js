@@ -9,9 +9,22 @@ const ModalOverlay = (props) => {
 		event.preventDefault();
 	};
 
+	const addTaskHandler = () => {
+		const title = document.getElementById('title').value;
+		const description = document.getElementById('description').value;
+		const date = document.getElementById('date').value;
+		props.addTask({ title, description, date });
+		props.hide();
+	};
+
 	const modal = (
 		<div className="modal">
-			<form onSubmit={submitForm}>{props.children}</form>
+			<form onSubmit={submitForm}>
+				{props.children}
+				<button type="submit" onClick={addTaskHandler}>
+					Add Task
+				</button>
+			</form>
 		</div>
 	);
 	return ReactDOM.createPortal(modal, document.getElementById('modal-hook'));

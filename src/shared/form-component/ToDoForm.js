@@ -8,7 +8,11 @@ const ToDoForm = () => {
 			<label htmlFor="description">Description</label>
 			<textarea name="description" id="description"></textarea>
 			<label htmlFor="date">Date</label>
-			<input type="date" id="date" min={new Date().toJSON().slice(0, 10)} />
+			<input
+				type="date"
+				id="date"
+				min={new Date().toISOString().slice(0, 10)}
+			/>
 		</div>
 	);
 };
