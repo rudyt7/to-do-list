@@ -1,15 +1,5 @@
 .list {
 	padding: 1rem;
-	margin: 1rem;
-	border-radius: 25px;
-	background: #ecf0f3;
-	box-shadow: 5px 5px 10px #c9cccf, -5px -5px 10px #ffffff;
-	transition: 0.3s;
+	margin: 1.5rem;
 	flex: 1;
-}
-
-.list:hover {
-	top: -0.2rem;
-	background: #ecf0f3;
-	box-shadow: 10px 10px 20px #c9cccf, -10px -10px 20px #ffffff;
 }
