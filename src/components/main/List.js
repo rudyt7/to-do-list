@@ -24,14 +24,12 @@ const List = () => {
 
   const ListJsx = toDoList.map((toDoItem) => {
     return (
-      <div>
-        <ListItem
-          title={toDoItem.title}
-          key={Math.random().toString() + toDoItem.date}
-        >
-          {toDoItem.description}
-        </ListItem>
-      </div>
+      <ListItem
+        title={toDoItem.title}
+        key={Math.random().toString() + toDoItem.date}
+      >
+        {toDoItem.description}
+      </ListItem>
     );
   });
 
