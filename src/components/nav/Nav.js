@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Nav.css';
 
+import { LabelContext } from '../../context/labelContext';
+
 const Nav = (props) => {
+	const labelContext = useContext(LabelContext);
+
+	const personalLabelHandler = () => {
+		labelContext.setPersonalLabel();
+	};
+	const workLabelHandler = () => {
+		labelContext.setWorkLabel();
+	};
+	const shoppingLabelHandler = () => {
+		labelContext.setShoppingLabel();
+	};
+	const othersLabelHandler = () => {
+		labelContext.setOthersLabel();
+	};
+
+	const removeLabelHandler = () => {
+		labelContext.clearLabel();
+	};
+
 	return (
 		<nav className="nav">
 			<div>
@@ -22,6 +43,7 @@ const Nav = (props) => {
 					</li>
 				</ul>
 			</div>
+
 			<br />
 			<div>
 				<p>Completed</p>
@@ -31,24 +53,20 @@ const Nav = (props) => {
 					</li>
 				</ul>
 			</div>
+
 			<br />
 			<div>
 				<p>Labels</p>
-				<ul>
-					<li>
-						<a href="#pablo">Personal</a>
-					</li>
-					<li>
-						<a href="#pablo">Work</a>
-					</li>
-
-					<li>
-						<a href="#pablo">Shopping</a>
-					</li>
-					<li>
-						<a href="#pablo">Others</a>
-					</li>
-				</ul>
+				<button onClick={removeLabelHandler}>All</button>
+				<br />
+				<button onClick={personalLabelHandler}>Personal</button>
+				<br />
+				<button onClick={workLabelHandler}>Work</button>
+				<br />
+				<button onClick={shoppingLabelHandler}>Shopping</button>
+				<br />
+				<button onClick={othersLabelHandler}>Others</button>
+				<br />
 			</div>
 		</nav>
 	);

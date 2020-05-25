@@ -1,49 +1,64 @@
-import React, { useState } from "react";
-import "./List.css";
+import React, { useState, useContext } from 'react';
+import './List.css';
 
-import ListItem from "./ListItem";
-import Modal from "../../shared/ui/Modal";
-import ToDoForm from "../../shared/form-component/ToDoForm";
-import add from "../../shared/svgImg/SVG/plus.svg";
+import ListItem from './ListItem';
+import Modal from '../../shared/ui/Modal';
+import ToDoForm from '../../shared/form-component/ToDoForm';
+import add from '../../shared/svgImg/SVG/plus.svg';
+import { LabelContext } from '../../context/labelContext';
 
 const List = () => {
-  const [toDoList, setToDoList] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+	const [toDoList, setToDoList] = useState([]);
+	const [showModal, setShowModal] = useState(false);
+	const labelContext = useContext(LabelContext);
+	let ListJsx, tasks;
 
-  const showModalHandler = () => {
-    setShowModal(true);
-  };
+	const createList = (type) => {
+		if (type === '') {
+			tasks = toDoList;
+		} else {
+			tasks = toDoList.filter((listItem) => listItem.type === type);
+		}
+	};
 
-  const hideModalHandler = () => {
-    setShowModal(false);
-  };
+	const showModalHandler = () => {
+		setShowModal(true);
+	};
 
-  const AddToDoHandler = (task) => {
-    setToDoList((prevState) => [...prevState, task]);
-  };
+	const hideModalHandler = () => {
+		setShowModal(false);
+	};
 
-  const ListJsx = toDoList.map((toDoItem) => {
-    return (
-      <ListItem
-        title={toDoItem.title}
-        key={Math.random().toString() + toDoItem.date}
-      >
-        {toDoItem.description}
-      </ListItem>
-    );
-  });
+	const AddToDoHandler = (task) => {
+		setToDoList((prevState) => [...prevState, task]);
+	};
 
-  return (
-    <div className="list">
-      <Modal show={showModal} hide={hideModalHandler} addTask={AddToDoHandler}>
-        <ToDoForm />
-      </Modal>
-      <ul>{ListJsx}</ul>
-      <button className="btn-add" onClick={showModalHandler}>
-        <img src={add} alt="add-icon" className="add-icon" />
-      </button>
-    </div>
-  );
+	createList(labelContext.label);
+
+	ListJsx = tasks.map((task) => {
+		return (
+			<ListItem
+				title={task.title}
+				key={Math.random().toString() + task.date}
+				type={task.type}
+				date={task.date}
+			>
+				{task.description}
+			</ListItem>
+		);
+	});
+
+	return (
+		<div className="list">
+			<Modal show={showModal} hide={hideModalHandler} addTask={AddToDoHandler}>
+				<ToDoForm />
+			</Modal>
+			<ul>{ListJsx}</ul>
+			<button className="btn-add" onClick={showModalHandler}>
+				<img src={add} alt="add-icon" className="add-icon" />
+			</button>
+		</div>
+	);
 };
 
 export default List;
