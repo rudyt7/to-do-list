@@ -5,7 +5,7 @@ import ListItem from './ListItem';
 import Modal from '../../shared/ui/Modal';
 import ToDoForm from '../../shared/form-component/ToDoForm';
 import add from '../../shared/svgImg/SVG/plus.svg';
-import { LabelContext } from '../../context/labelContext';
+import { LabelContext } from '../../context/LabelContext';
 
 const List = () => {
 	const [toDoList, setToDoList] = useState([]);

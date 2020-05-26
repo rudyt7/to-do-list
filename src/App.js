@@ -4,17 +4,20 @@ import './App.css';
 import Header from './components/header/Header';
 import Nav from './components/nav/Nav';
 import List from './components/main/List';
-import LabelContextProvider from './context/labelContext';
+import LabelContextProvider from './context/LabelContext';
+import ActionContextProvider from './context/ActionContext';
 
 function App() {
 	return (
 		<div className="container">
 			<Header />
 			<div className="content">
-				<LabelContextProvider>
-					<Nav />
-					<List />
-				</LabelContextProvider>
+				<ActionContextProvider>
+					<LabelContextProvider>
+						<Nav />
+						<List />
+					</LabelContextProvider>
+				</ActionContextProvider>
 			</div>
 		</div>
 	);
