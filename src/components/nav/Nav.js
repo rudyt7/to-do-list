@@ -2,11 +2,9 @@ import React, { useContext } from 'react';
 import './Nav.css';
 
 import { LabelContext } from '../../context/LabelContext';
-import { ActionContext } from '../../context/ActionContext';
 
 const Nav = (props) => {
 	const labelContext = useContext(LabelContext);
-	const actionContext = useContext(ActionContext);
 
 	const personalLabelHandler = () => {
 		labelContext.setPersonalLabel();
@@ -24,32 +22,8 @@ const Nav = (props) => {
 		labelContext.clearLabel();
 	};
 
-	const newTaskHandler = () => {
-		actionContext.setNew();
-	};
-	const completedTaskHandler = () => {
-		actionContext.setCompleted();
-	};
-	const inProgressTaskHandler = () => {
-		actionContext.setInProgress();
-	};
-	const missedTaskHandler = () => {
-		actionContext.setMissed();
-	};
-
 	return (
 		<nav className="nav">
-			<div>
-				<p>Actions</p>
-				<button onClick={newTaskHandler}>New</button>
-				<br />
-				<button onClick={completedTaskHandler}>In Progress</button>
-				<br />
-				<button onClick={inProgressTaskHandler}>Completed</button>
-				<br />
-				<button onClick={missedTaskHandler}>Missed</button>
-				<br />
-			</div>
 			<div>
 				<p>Labels</p>
 				<button onClick={removeLabelHandler}>All</button>

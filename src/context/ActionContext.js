@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export const ActionContext = React.createContext({
 	action: '',
+	setAll: () => {},
 	setNew: () => {},
 	setCompleted: () => {},
 	setInProgress: () => {},
@@ -10,6 +11,10 @@ export const ActionContext = React.createContext({
 
 const ActionContextProvider = (props) => {
 	const [action, setAction] = useState('');
+
+	const allTaskHandler = () => {
+		setAction('all');
+	};
 
 	const newTaskHandler = () => {
 		setAction('new');
@@ -31,6 +36,7 @@ const ActionContextProvider = (props) => {
 		<ActionContext.Provider
 			value={{
 				action: action,
+				setAll: allTaskHandler,
 				setNew: newTaskHandler,
 				setCompleted: completedTaskHandler,
 				setInProgress: inProgressTaskHandler,

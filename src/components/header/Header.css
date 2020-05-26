@@ -1,21 +1,15 @@
 .header {
 	height: 7rem;
 	padding: 1rem;
-	margin: 1.5rem;
-	border-radius: 25px;
-	background: #ececec;
 	border-radius: 20px;
-	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
-		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
-		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+	background: #ececec;
+	box-shadow: 5px 5px 10px #c9c9c9;
 	transition: box-shadow 399ms ease-in-out;
-
-	display: flex;
 	justify-content: space-between;
 }
 
-.header:hover {
+/* .header:hover {
 	top: -0.2rem;
 	box-shadow: inset 7px 7px 15px rgba(55, 84, 170, 0.15),
 		inset -7px -7px 20px white, 0px 0px 4px rgba(255, 255, 255, 0.2);
-}
+} */
