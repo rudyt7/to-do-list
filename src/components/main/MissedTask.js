@@ -21,6 +21,7 @@ const MissedTask = (props) => {
 	const ListJsx = task.map((t) => {
 		return (
 			<ListItem
+				id={t.id}
 				title={t.title}
 				key={Math.random().toString() + t.date}
 				type={t.type}

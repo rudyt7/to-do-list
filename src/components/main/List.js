@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import * as feather from 'feather-icons';
 import './List.css';
 
 import ListItem from './ListItem';
@@ -13,88 +14,88 @@ import add from '../../shared/svgImg/SVG/plus.svg';
 import { LabelContext } from '../../context/LabelContext';
 import { ActionContext } from '../../context/ActionContext';
 
-const DUMMY_TASK = [
-	{
-		title: 'Shop (PERSONAL TASK)',
-		description: 'Get Food',
-		type: 'personal',
-		completed: false,
-		progress: true,
-		missed: false,
-	},
-	{
-		title: 'Shop  (WORK TASK)',
-		description: 'Get Food',
-		type: 'work',
-		completed: false,
-		progress: true,
-		missed: false,
-	},
-	{
-		title: 'In Progress Task (SHOPPING TASK)',
-		description: 'Get Food',
-		type: 'shopping',
-		completed: false,
-		progress: true,
-		missed: false,
-	},
-	{
-		title: 'Completed Task  (PERSONAL TASK)',
-		description: 'Get Food',
-		type: 'personal',
-		completed: true,
-		progress: false,
-		missed: false,
-	},
-	{
-		title: 'Completed Task (WORK TASK)',
-		description: 'Get Food',
-		type: 'work',
-		completed: true,
-		progress: false,
-		missed: false,
-	},
-	{
-		title: 'Completed Task (SHOPPING TASK)',
-		description: 'Get Food',
-		type: 'shopping',
-		completed: true,
-		progress: false,
-		missed: false,
-	},
-	{
-		title: 'Missed Task  (PERSONAL TASK)',
-		description: 'Get Food',
-		type: 'personal',
-		completed: false,
-		progress: false,
-		missed: true,
-	},
-	{
-		title: 'Missed Task (WORK TASK)',
-		description: 'Get Food',
-		type: 'work',
-		completed: false,
-		progress: false,
-		missed: true,
-	},
-	{
-		title: 'Missed Task (SHOPPING TASK)',
-		description: 'Get Food',
-		type: 'shopping',
-		completed: false,
-		progress: false,
-		missed: true,
-	},
-	{
-		title: 'Missed Task (OTHER TASK)',
-		description: 'Get Food',
-		type: 'others',
-		completed: false,
-		progress: false,
-		missed: true,
-	},
-];
+// const DUMMY_TASK = [
+// 	{
+// 		title: 'Shop (PERSONAL TASK)',
+// 		description: 'Get Food',
+// 		type: 'personal',
+// 		completed: false,
+// 		progress: true,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'Shop  (WORK TASK)',
+// 		description: 'Get Food',
+// 		type: 'work',
+// 		completed: false,
+// 		progress: true,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'In Progress Task (SHOPPING TASK)',
+// 		description: 'Get Food',
+// 		type: 'shopping',
+// 		completed: false,
+// 		progress: true,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'Completed Task  (PERSONAL TASK)',
+// 		description: 'Get Food',
+// 		type: 'personal',
+// 		completed: true,
+// 		progress: false,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'Completed Task (WORK TASK)',
+// 		description: 'Get Food',
+// 		type: 'work',
+// 		completed: true,
+// 		progress: false,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'Completed Task (SHOPPING TASK)',
+// 		description: 'Get Food',
+// 		type: 'shopping',
+// 		completed: true,
+// 		progress: false,
+// 		missed: false,
+// 	},
+// 	{
+// 		title: 'Missed Task  (PERSONAL TASK)',
+// 		description: 'Get Food',
+// 		type: 'personal',
+// 		completed: false,
+// 		progress: false,
+// 		missed: true,
+// 	},
+// 	{
+// 		title: 'Missed Task (WORK TASK)',
+// 		description: 'Get Food',
+// 		type: 'work',
+// 		completed: false,
+// 		progress: false,
+// 		missed: true,
+// 	},
+// 	{
+// 		title: 'Missed Task (SHOPPING TASK)',
+// 		description: 'Get Food',
+// 		type: 'shopping',
+// 		completed: false,
+// 		progress: false,
+// 		missed: true,
+// 	},
+// 	{
+// 		title: 'Missed Task (OTHER TASK)',
+// 		description: 'Get Food',
+// 		type: 'others',
+// 		completed: false,
+// 		progress: false,
+// 		missed: true,
+// 	},
+// ];
 
 const List = () => {
 	const [toDoList, setToDoList] = useState([]);
@@ -106,9 +107,12 @@ const List = () => {
 	let ListJsx, tasks;
 
 	useEffect(() => {
-		setToDoList(DUMMY_TASK);
-		actionContext.setAll();
-	}, [toDoList]);
+		console.log(toDoList);
+	});
+
+	useEffect(() => {
+		feather.replace();
+	}, []);
 
 	const createList = (type) => {
 		if (type === '') {
@@ -130,15 +134,22 @@ const List = () => {
 		setToDoList((prevState) => [...prevState, task]);
 	};
 
+	const CompleteTaskHandler = (id) => {
+		const index = toDoList.findIndex((element) => element.id === id);
+		console.log(index);
+	};
+
 	createList(labelContext.label);
 
 	ListJsx = tasks.map((task) => {
 		return (
 			<ListItem
+				id={task.id}
 				title={task.title}
-				key={Math.random().toString() + task.date}
+				key={task.id}
 				type={task.type}
 				date={task.date}
+				done={CompleteTaskHandler}
 			>
 				{task.description}
 			</ListItem>
@@ -151,18 +162,23 @@ const List = () => {
 				<ToDoForm />
 			</Modal>
 			<Tabs />
-			{actionContext.action === 'all' && <ul>{ListJsx}</ul>}
-			{actionContext.action === 'completed' && (
-				<CompletedTasks tasksList={toDoList} />
-			)}
-			{actionContext.action === 'missed' && (
-				<MissedTasks tasksList={toDoList} />
-			)}
-			{actionContext.action === 'progress' && (
-				<ProgressTasks tasksList={toDoList} />
-			)}
+			<div className="list__container">
+				{actionContext.action === 'all' && (
+					<ul style={{ listStyle: 'none' }}>{ListJsx}</ul>
+				)}
+				{actionContext.action === 'completed' && (
+					<CompletedTasks tasksList={toDoList} />
+				)}
+				{actionContext.action === 'missed' && (
+					<MissedTasks tasksList={toDoList} />
+				)}
+				{actionContext.action === 'progress' && (
+					<ProgressTasks tasksList={toDoList} />
+				)}
+			</div>
 			<button className="btn-add" onClick={showModalHandler}>
-				<img src={add} alt="add-icon" className="add-icon" id="add" />
+				{/* <img src={add} alt="add-icon" className="add-icon" id="add" /> */}
+				<i data-feather="plus" className="plus-icon"></i>
 			</button>
 		</div>
 	);

@@ -1,14 +1,22 @@
 .list {
 	padding-top: 1rem;
 	margin: 0.5rem;
-	flex: 1 0.5;
+	flex: 1 1;
 	position: relative;
-	overflow: scroll;
+}
+
+.list__container {
+	display: flex;
+	margin-top: 20px;
+	margin-left: 15px;
+	flex-direction: column;
+	height: 480px;
+	overflow: auto;
 }
 
 .btn-add {
-	width: 66px;
-	height: 66px;
+	width: 55px;
+	height: 55px;
 	margin: 20px 8px 8px;
 	border: 1px solid #69d1dd;
 	background: linear-gradient(#5ccfdb, #67b3f5);
@@ -33,4 +41,11 @@
 
 .add-icon {
 	height: 30px;
+}
+
+.plus-icon {
+	color: #292c31;
+	height: 50px;
+	width: 50px;
+	stroke-width: 0.5px;
 }

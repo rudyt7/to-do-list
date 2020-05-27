@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import './Tabs.css';
 
@@ -23,6 +23,7 @@ const Tabs = (props) => {
 	useEffect(() => {
 		const button = document.getElementById(1);
 		button.classList.add('active');
+		actionContext.setAll();
 	}, []);
 
 	const toggleClassHandler = (id) => {

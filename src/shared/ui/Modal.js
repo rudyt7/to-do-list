@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { v4 } from 'uuid';
 import './Modal.css';
 
 import BackDrop from './Backdrop';
@@ -16,6 +17,7 @@ const ModalOverlay = (props) => {
 		const type = document.getElementById('type').value;
 
 		const task = {
+			id: v4(),
 			title,
 			description,
 			date,
