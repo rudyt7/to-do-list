@@ -14,14 +14,89 @@ import { LabelContext } from '../../context/LabelContext';
 import { ActionContext } from '../../context/ActionContext';
 
 const DUMMY_TASK = [
-	{ title: 'Shop', description: 'Get Food', type: 'shopping' },
-	{ title: 'Shop', description: 'Get Food', type: 'shopping' },
-	{ title: 'Shop', description: 'Get Food', type: 'shopping' },
+	{
+		title: 'Shop (PERSONAL TASK)',
+		description: 'Get Food',
+		type: 'personal',
+		completed: false,
+		progress: true,
+		missed: false,
+	},
+	{
+		title: 'Shop  (WORK TASK)',
+		description: 'Get Food',
+		type: 'work',
+		completed: false,
+		progress: true,
+		missed: false,
+	},
+	{
+		title: 'In Progress Task (SHOPPING TASK)',
+		description: 'Get Food',
+		type: 'shopping',
+		completed: false,
+		progress: true,
+		missed: false,
+	},
+	{
+		title: 'Completed Task  (PERSONAL TASK)',
+		description: 'Get Food',
+		type: 'personal',
+		completed: true,
+		progress: false,
+		missed: false,
+	},
+	{
+		title: 'Completed Task (WORK TASK)',
+		description: 'Get Food',
+		type: 'work',
+		completed: true,
+		progress: false,
+		missed: false,
+	},
+	{
+		title: 'Completed Task (SHOPPING TASK)',
+		description: 'Get Food',
+		type: 'shopping',
+		completed: true,
+		progress: false,
+		missed: false,
+	},
+	{
+		title: 'Missed Task  (PERSONAL TASK)',
+		description: 'Get Food',
+		type: 'personal',
+		completed: false,
+		progress: false,
+		missed: true,
+	},
+	{
+		title: 'Missed Task (WORK TASK)',
+		description: 'Get Food',
+		type: 'work',
+		completed: false,
+		progress: false,
+		missed: true,
+	},
+	{
+		title: 'Missed Task (SHOPPING TASK)',
+		description: 'Get Food',
+		type: 'shopping',
+		completed: false,
+		progress: false,
+		missed: true,
+	},
+	{
+		title: 'Missed Task (OTHER TASK)',
+		description: 'Get Food',
+		type: 'others',
+		completed: false,
+		progress: false,
+		missed: true,
+	},
 ];
 
 const List = () => {
-	let c = 0;
-
 	const [toDoList, setToDoList] = useState([]);
 	const [showModal, setShowModal] = useState(false);
 
@@ -33,7 +108,7 @@ const List = () => {
 	useEffect(() => {
 		setToDoList(DUMMY_TASK);
 		actionContext.setAll();
-	}, []);
+	}, [toDoList]);
 
 	const createList = (type) => {
 		if (type === '') {
@@ -77,9 +152,15 @@ const List = () => {
 			</Modal>
 			<Tabs />
 			{actionContext.action === 'all' && <ul>{ListJsx}</ul>}
-			{actionContext.action === 'completed' && <CompletedTasks />}
-			{actionContext.action === 'missed' && <MissedTasks />}
-			{actionContext.action === 'progress' && <ProgressTasks />}
+			{actionContext.action === 'completed' && (
+				<CompletedTasks tasksList={toDoList} />
+			)}
+			{actionContext.action === 'missed' && (
+				<MissedTasks tasksList={toDoList} />
+			)}
+			{actionContext.action === 'progress' && (
+				<ProgressTasks tasksList={toDoList} />
+			)}
 			<button className="btn-add" onClick={showModalHandler}>
 				<img src={add} alt="add-icon" className="add-icon" id="add" />
 			</button>

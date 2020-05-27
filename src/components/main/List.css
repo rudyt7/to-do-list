@@ -1,8 +1,9 @@
 .list {
 	padding-top: 1rem;
 	margin: 0.5rem;
-	flex: 1;
+	flex: 1 0.5;
 	position: relative;
+	overflow: scroll;
 }
 
 .btn-add {

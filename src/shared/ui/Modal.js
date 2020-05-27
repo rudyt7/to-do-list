@@ -15,25 +15,34 @@ const ModalOverlay = (props) => {
 		const date = document.getElementById('date').value;
 		const type = document.getElementById('type').value;
 
+		const task = {
+			title,
+			description,
+			date,
+			completed: false,
+			progress: true,
+			missed: false,
+		};
+
 		switch (type) {
 			case 'personal':
-				props.addTask({ title, description, date, type: 'personal' });
+				props.addTask({ ...task, type: 'personal' });
 				break;
 
 			case 'work':
-				props.addTask({ title, description, date, type: 'work' });
+				props.addTask({ ...task, type: 'work' });
 				break;
 
 			case 'shopping':
-				props.addTask({ title, description, date, type: 'shopping' });
+				props.addTask({ ...task, type: 'shopping' });
 				break;
 
 			case 'others':
-				props.addTask({ title, description, date, type: 'others' });
+				props.addTask({ ...task, type: 'others' });
 				break;
 
 			default:
-				props.addTask({ title, description, date, type: 'others' });
+				props.addTask({ ...task, type: 'others' });
 				break;
 		}
 		props.hide();
