@@ -36,7 +36,9 @@ const ListItem = (props) => {
 		props.done(props.id);
 	};
 
-	const deleteHandler = () => {};
+	const deleteHandler = () => {
+		props.remove(props.id);
+	};
 
 	return (
 		<li className="list-item" id="list-item">

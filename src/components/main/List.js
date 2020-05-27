@@ -134,9 +134,20 @@ const List = () => {
 		setToDoList((prevState) => [...prevState, task]);
 	};
 
-	const CompleteTaskHandler = (id) => {
+	const completeTaskHandler = (id) => {
 		const index = toDoList.findIndex((element) => element.id === id);
-		console.log(index);
+		const task = { ...toDoList[index] };
+		task.completed = true;
+		task.progress = false;
+		const updatedTask = { ...task };
+		const newList = [...toDoList];
+		newList[index] = updatedTask;
+		setToDoList(newList);
+	};
+
+	const removeTaskHandler = (id) => {
+		const newList = toDoList.filter((element) => element.id !== id);
+		setToDoList(newList);
 	};
 
 	createList(labelContext.label);
@@ -149,7 +160,8 @@ const List = () => {
 				key={task.id}
 				type={task.type}
 				date={task.date}
-				done={CompleteTaskHandler}
+				done={completeTaskHandler}
+				remove={removeTaskHandler}
 			>
 				{task.description}
 			</ListItem>
