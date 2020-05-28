@@ -26,6 +26,8 @@ const MissedTask = (props) => {
 				key={Math.random().toString() + t.date}
 				type={t.type}
 				date={t.date}
+				done={props.done}
+				remove={props.remove}
 			>
 				{t.description}
 			</ListItem>

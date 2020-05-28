@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import * as feather from 'feather-icons';
 import './List.css';
 
@@ -9,7 +10,6 @@ import CompletedTasks from './CompletedTask';
 import MissedTasks from './MissedTask';
 import ProgressTasks from './ProgressTask';
 import Tabs from '../nav/Tabs';
-import add from '../../shared/svgImg/SVG/plus.svg';
 
 import { LabelContext } from '../../context/LabelContext';
 import { ActionContext } from '../../context/ActionContext';
@@ -176,20 +176,29 @@ const List = () => {
 			<Tabs />
 			<div className="list__container">
 				{actionContext.action === 'all' && (
-					<ul style={{ listStyle: 'none' }}>{ListJsx}</ul>
+					<ul style={{ listStyle: 'none' }}>
+						<AnimatePresence initial={false}>{ListJsx}</AnimatePresence>
+					</ul>
 				)}
 				{actionContext.action === 'completed' && (
-					<CompletedTasks tasksList={toDoList} />
-				)}
-				{actionContext.action === 'missed' && (
-					<MissedTasks tasksList={toDoList} />
+					<CompletedTasks tasksList={toDoList} remove={removeTaskHandler} />
 				)}
 				{actionContext.action === 'progress' && (
-					<ProgressTasks tasksList={toDoList} />
+					<ProgressTasks
+						tasksList={toDoList}
+						done={completeTaskHandler}
+						remove={removeTaskHandler}
+					/>
+				)}
+				{actionContext.action === 'missed' && (
+					<MissedTasks
+						tasksList={toDoList}
+						done={completeTaskHandler}
+						remove={removeTaskHandler}
+					/>
 				)}
 			</div>
 			<button className="btn-add" onClick={showModalHandler}>
-				{/* <img src={add} alt="add-icon" className="add-icon" id="add" /> */}
 				<i data-feather="plus" className="plus-icon"></i>
 			</button>
 		</div>

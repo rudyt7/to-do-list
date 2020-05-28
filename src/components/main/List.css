@@ -11,7 +11,8 @@
 	margin-left: 15px;
 	flex-direction: column;
 	height: 480px;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .btn-add {

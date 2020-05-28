@@ -26,6 +26,7 @@ const CompletedTask = (props) => {
 				key={Math.random().toString() + t.date}
 				type={t.type}
 				date={t.date}
+				remove={props.remove}
 			>
 				{t.description}
 			</ListItem>
