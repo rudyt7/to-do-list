@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import ListItem from './ListItem';
 
 import { LabelContext } from '../../context/LabelContext';
@@ -35,7 +36,9 @@ const CompletedTask = (props) => {
 
 	return (
 		<div>
-			<ul>{ListJsx}</ul>
+			<ul>
+				<AnimatePresence initial={false}>{ListJsx}</AnimatePresence>
+			</ul>
 		</div>
 	);
 };
