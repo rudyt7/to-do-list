@@ -19,11 +19,11 @@
 		inset -7px -7px 20px white, 0px 0px 4px rgba(255, 255, 255, 0.2);
 } */
 
-p {
+.title {
   margin-bottom: 20px;
 }
 
-button {
+.nav-btn {
   padding: 15px;
   width: 14em;
   border: none;
@@ -34,7 +34,7 @@ button {
   color: #666666;
 }
 
-button:hover {
+.nav-btn:hover {
   cursor: pointer;
   box-shadow: inset -7px -7px 20px 0 rgba(255, 255, 255, 0.7),
     inset 7px 7px 20px 0 rgba(0, 0, 0, 0.2);
