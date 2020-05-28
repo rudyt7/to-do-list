@@ -28,14 +28,16 @@ const ProgressTask = (props) => {
 				key={t.id}
 				date={t.date}
 				done={props.done}
+				undo={props.undo}
 				remove={props.remove}
+				complete={t.completed}
+				missed={t.missed}
+				progress={t.progress}
 			>
 				{t.description}
 			</ListItem>
 		);
 	});
-
-	console.log(task.id);
 
 	return (
 		<div>

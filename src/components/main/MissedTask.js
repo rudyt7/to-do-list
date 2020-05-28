@@ -27,8 +27,10 @@ const MissedTask = (props) => {
 				key={t.id}
 				type={t.type}
 				date={t.date}
-				done={props.done}
 				remove={props.remove}
+				complete={t.completed}
+				missed={t.missed}
+				progress={t.progress}
 			>
 				{t.description}
 			</ListItem>

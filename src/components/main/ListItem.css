@@ -40,10 +40,10 @@ h1 {
 } */
 
 .list-item__btn {
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	background: #ececec;
-	border-radius: 20px;
+	border-radius: 12px;
 	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
 		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
 		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
@@ -53,12 +53,35 @@ h1 {
 	align-items: center;
 }
 .list-item__btn .icon {
-	color: #9dabc0;
 	height: 20px;
 	width: 20px;
-	stroke-width: 1.5px;
+	stroke-width: 2px;
 }
 .list-item__btn:hover {
 	box-shadow: inset 7px 7px 15px rgba(55, 84, 170, 0.15),
 		inset -7px -7px 20px white, 0px 0px 4px rgba(255, 255, 255, 0.2);
+}
+
+.icon-complete {
+	color: #54ce3c;
+}
+
+.icon-undo {
+	color: #9dabc0;
+}
+
+.icon-delete {
+	color: #ff4e4e;
+}
+
+.disabled {
+	cursor: not-allowed;
+	filter: blur(0.7px);
+	opacity: 0.7;
+}
+
+.disabled:hover {
+	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
 }
