@@ -24,8 +24,8 @@ const ProgressTask = (props) => {
 			<ListItem
 				id={t.id}
 				title={t.title}
-				key={Math.random().toString() + t.date}
 				type={t.type}
+				key={t.id}
 				date={t.date}
 				done={props.done}
 				remove={props.remove}
@@ -35,11 +35,12 @@ const ProgressTask = (props) => {
 		);
 	});
 
+	console.log(task.id);
+
 	return (
 		<div>
 			<ul>
-				{' '}
-				<AnimatePresence initial={false}>{ListJsx}</AnimatePresence>
+				<AnimatePresence initial={true}>{ListJsx}</AnimatePresence>
 			</ul>
 		</div>
 	);

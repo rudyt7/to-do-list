@@ -177,7 +177,7 @@ const List = () => {
 			<div className="list__container">
 				{actionContext.action === 'all' && (
 					<ul style={{ listStyle: 'none' }}>
-						<AnimatePresence initial={false}>{ListJsx}</AnimatePresence>
+						<AnimatePresence initial={true}>{ListJsx}</AnimatePresence>
 					</ul>
 				)}
 				{actionContext.action === 'completed' && (

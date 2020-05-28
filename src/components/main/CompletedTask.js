@@ -24,7 +24,7 @@ const CompletedTask = (props) => {
 			<ListItem
 				id={t.id}
 				title={t.title}
-				key={Math.random().toString() + t.date}
+				key={t.id}
 				type={t.type}
 				date={t.date}
 				remove={props.remove}
@@ -37,7 +37,7 @@ const CompletedTask = (props) => {
 	return (
 		<div>
 			<ul>
-				<AnimatePresence initial={false}>{ListJsx}</AnimatePresence>
+				<AnimatePresence initial={true}>{ListJsx}</AnimatePresence>
 			</ul>
 		</div>
 	);

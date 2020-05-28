@@ -15,23 +15,24 @@ const ListItem = (props) => {
 	// let listItem = null;
 
 	if (isEmptyOrSpaces(props.title)) {
-		return false;
-	} else {
-		// switch (props.type) {
-		//     case 'personal':
-		//       break;
-		//     case 'work':
-		//       break;
-		//     case 'shopping':
-		//       break;
-		//     case 'others':
-		//       break;
-		//     default:
-		//       break;
-		// }
+		return null;
 	}
+	// } else {
+	// 	// switch (props.type) {
+	// 	//     case 'personal':
+	// 	//       break;
+	// 	//     case 'work':
+	// 	//       break;
+	// 	//     case 'shopping':
+	// 	//       break;
+	// 	//     case 'others':
+	// 	//       break;
+	// 	//     default:
+	// 	//       break;
+	// 	// }
+	// }
 
-	// function handleOngoing() {}
+	const unCompleteHandler = () => {};
 
 	const completeHandler = () => {
 		props.done(props.id);
@@ -43,7 +44,7 @@ const ListItem = (props) => {
 
 	return (
 		<motion.li
-			key={props.key}
+			key={props.id}
 			id="list-item"
 			className="list-item"
 			positionTransition
