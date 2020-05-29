@@ -1,90 +1,90 @@
 .modal {
-	z-index: 100;
-	position: fixed;
-	background: #e9eef7;
-	top: 50%;
-	left: 50%;
-	width: 80rem;
-	height: 50rem;
-	border-radius: 40px;
-	padding: 3rem;
+  z-index: 100;
+  position: fixed;
+  background: #e9eef7;
+  top: 50%;
+  left: 50%;
+  width: 80rem;
+  height: 50rem;
+  border-radius: 40px;
+  padding: 3rem;
 }
 
 .modal__btn-container {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .modal__btn {
-	height: 50px;
-	font-size: 16px;
-	font-weight: 100;
-	padding: 15px;
-	margin: 15px;
-	outline: none;
-	border: none;
-	border-radius: 15px;
-	border: 1px solid #69d1dd;
-	background: linear-gradient(#5ccfdb, #67b3f5);
-	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
-		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
-		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
-	transition: box-shadow 399ms ease-in-out;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 100;
+  padding: 15px;
+  margin: 15px;
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  border: 1px solid #69d1dd;
+  background: linear-gradient(#5ccfdb, #67b3f5);
+  box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 299ms ease-in-out;
 }
 
 .modal__btn:hover {
-	box-shadow: inset 7px 7px 15px rgba(47, 79, 175, 0.15),
-		inset -7px -7px 20px #4f9fe6, 0px 0px 4px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 7px 7px 15px rgba(47, 79, 175, 0.15),
+    inset -7px -7px 20px #4f9fe6, 0px 0px 4px rgba(255, 255, 255, 0.2);
 }
 
 .add-icon {
-	stroke-width: 1.2px;
-	size: 16px;
-	position: relative;
-	float: left;
-	left: -8px;
-	top: -6px;
+  stroke-width: 1.2px;
+  size: 16px;
+  position: relative;
+  float: left;
+  left: -8px;
+  top: -6px;
 }
 
 .clear-icon {
-	stroke-width: 1px;
-	size: 16px;
-	position: relative;
-	float: left;
-	left: -8px;
-	top: -5px;
+  stroke-width: 1px;
+  size: 16px;
+  position: relative;
+  float: left;
+  left: -8px;
+  top: -5px;
 }
 
 .x-icon {
-	stroke-width: 0.9px;
-	height: 30px;
-	width: 30px;
+  stroke-width: 0.9px;
+  height: 30px;
+  width: 30px;
 }
 
 .modal__btn-close {
-	width: 50px;
-	height: 50px;
-	margin: 15px;
-	border: 1px solid #69d1dd;
-	background: linear-gradient(#5ccfdb, #67b3f5);
-	border-radius: 50%;
-	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
-		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
-		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
-	transition: box-shadow 399ms ease-in-out;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin: 15px;
+  border: 1px solid #69d1dd;
+  background: linear-gradient(#5ccfdb, #67b3f5);
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 299ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal__btn-close:hover {
-	box-shadow: inset 7px 7px 15px rgba(47, 79, 175, 0.15),
-		inset -7px -7px 20px #4f9fe6, 0px 0px 4px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 7px 7px 15px rgba(47, 79, 175, 0.15),
+    inset -7px -7px 20px #4f9fe6, 0px 0px 4px rgba(255, 255, 255, 0.2);
 }
 
 .modal__btn-close:active {
-	border: none;
-	outline: none;
+  border: none;
+  outline: none;
 }
 
 /* .btn__add {
