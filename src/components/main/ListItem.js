@@ -58,7 +58,7 @@ const ListItem = (props) => {
 	if (props.complete) {
 		if (actionContext.action === 'all') {
 			listItem = (
-				<div>
+				<div className="list-item__container">
 					<h1 className="list-item__title">{props.title}</h1>
 					<div className="list-item__description">{props.children}</div>
 					<div className="list-item__date">{props.date}</div>
@@ -79,7 +79,7 @@ const ListItem = (props) => {
 			);
 		} else if (actionContext.action === 'completed') {
 			listItem = (
-				<div>
+				<div className="list-item__container">
 					<h1 className="list-item__title">{props.title}</h1>
 					<div className="list-item__description">{props.children}</div>
 					<div className="list-item__date">{props.date}</div>
@@ -96,7 +96,7 @@ const ListItem = (props) => {
 	} else if (props.progress) {
 		if (actionContext.action === 'all') {
 			listItem = (
-				<div>
+				<div className="list-item__container">
 					<h1 className="list-item__title">{props.title}</h1>
 					<div className="list-item__description">{props.children}</div>
 					<div className="list-item__date">{props.date}</div>
@@ -120,7 +120,7 @@ const ListItem = (props) => {
 			);
 		} else if (actionContext.action === 'progress') {
 			listItem = (
-				<div>
+				<div className="list-item__container">
 					<h1 className="list-item__title">{props.title}</h1>
 					<div className="list-item__description">{props.children}</div>
 					<div className="list-item__date">{props.date}</div>
@@ -139,7 +139,7 @@ const ListItem = (props) => {
 		}
 	} else if (props.missed) {
 		listItem = (
-			<div>
+			<div className="list-item__container">
 				<h1 className="list-item__title">{props.title}</h1>
 				<div className="list-item__description">{props.children}</div>
 				<div className="list-item__date">{props.date}</div>
