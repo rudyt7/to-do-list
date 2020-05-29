@@ -7,7 +7,7 @@ import List from './components/main/List';
 import LabelContextProvider from './context/LabelContext';
 import ActionContextProvider from './context/ActionContext';
 
-function App() {
+const App = () => {
 	return (
 		<div className="container">
 			<Header />
@@ -21,6 +21,6 @@ function App() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default App;

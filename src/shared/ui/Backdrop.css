@@ -4,6 +4,7 @@
 	left: 0;
 	width: 100%;
 	height: 100vh;
-	background-color: #26282bea;
+	background-color: #26282bf3;
 	z-index: 50;
+	border-radius: 100%;
 }

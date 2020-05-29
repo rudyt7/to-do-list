@@ -10,7 +10,7 @@ const ListItem = (props) => {
 	// 	return str === null || str.match(/^ *$/) !== null;
 	// }
 
-	const [action, setAction] = useState('progress');
+	// const [action, setAction] = useState();
 	const actionContext = useContext(ActionContext);
 
 	useEffect(() => {
@@ -21,28 +21,34 @@ const ListItem = (props) => {
 
 	const unCompleteHandler = () => {
 		props.undo(props.id);
-		if (action === 'complete' && actionContext.action === 'all') {
-			const completeButton = document.getElementsByClassName('btn-complete');
-			const undoButton = document.getElementsByClassName('btn-undo');
-			const complete = [...completeButton];
-			const undo = [...undoButton];
-			complete[0].classList.toggle('disabled');
-			undo[0].classList.toggle('disabled');
-			setAction('progress');
-		}
+		// setAction('progress');
+		// if (action === 'complete') {
+		// 	const completeButton = document.getElementsByClassName('btn-complete');
+		// 	const undoButton = document.getElementsByClassName('btn-undo');
+		// 	const complete = [...completeButton];
+		// 	const undo = [...undoButton];
+		// 	undo[0].classList.toggle('disabled');
+		// 	if (actionContext.action === 'all') {
+		// 		complete[0].classList.toggle('disabled');
+		// 	}
+		// 	setAction('progress');
+		// }
 	};
 
 	const completeHandler = () => {
 		props.done(props.id);
-		if (action === 'progress' && actionContext.action === 'all') {
-			const completeButton = document.getElementsByClassName('btn-complete');
-			const undoButton = document.getElementsByClassName('btn-undo');
-			const complete = [...completeButton];
-			const undo = [...undoButton];
-			complete[0].classList.toggle('disabled');
-			undo[0].classList.toggle('disabled');
-			setAction('complete');
-		}
+		// setAction('complete');
+		// if (action === 'progress') {
+		// 	const completeButton = document.getElementsByClassName('btn-complete');
+		// 	const undoButton = document.getElementsByClassName('btn-undo');
+		// 	const complete = [...completeButton];
+		// 	const undo = [...undoButton];
+		// 	complete[0].classList.toggle('disabled');
+		// 	if (actionContext.action === 'all') {
+		// 		undo[0].classList.toggle('disabled');
+		// 	}
+		// 	setAction('complete');
+		// }
 	};
 
 	const deleteHandler = () => {

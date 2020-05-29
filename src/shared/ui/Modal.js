@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import * as feather from 'feather-icons';
 import ReactDOM from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { v4 } from 'uuid';
 import './Modal.css';
 
 import BackDrop from './Backdrop';
+
+const modalAnimations = {
+	hidden: {
+		opacity: 0,
+		scale: 0,
+		x: '-50%',
+		y: '-50%',
+	},
+	visible: {
+		opacity: 1,
+		scale: 1,
+		x: '-50%',
+		y: '-50%',
+		transition: {
+			delay: 0.1,
+			when: 'beforeChildren',
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const backdropAnimations = {
+	hidden: {
+		opacity: 0,
+		scale: 0,
+	},
+	visible: {
+		opacity: 1,
+		scale: 2,
+	},
+	exit: {
+		opacity: 0,
+		scale: 0,
+	},
+};
 
 const ModalOverlay = (props) => {
 	const submitForm = (event) => {
@@ -51,27 +88,52 @@ const ModalOverlay = (props) => {
 	};
 
 	const modal = (
-		<div className="modal">
-			<form onSubmit={submitForm}>
-				{props.children}
-				<button className="btn" type="submit" onClick={addTaskHandler}>
-					Add Task
-				</button>
-				<button className="btn" type="reset">
-					Clear
-				</button>
-			</form>
-		</div>
+		<AnimatePresence>
+			<motion.div
+				className="modal"
+				variants={modalAnimations}
+				initial="hidden"
+				animate="visible"
+				exit={{ opacity: 1, scale: 0, transition: { duration: 0.1 } }}
+			>
+				<form onSubmit={submitForm}>
+					{props.children}
+					<div className="modal__btn-container">
+						<button
+							className="modal__btn"
+							type="submit"
+							onClick={addTaskHandler}
+						>
+							<i data-feather="check" className="add-icon"></i>
+							Add Task
+						</button>
+						<button className="modal__btn" type="reset">
+							<i data-feather="delete" className="clear-icon"></i>
+							Clear Input
+						</button>
+						<button className="modal__btn-close" onClick={props.hide}>
+							<i data-feather="x" className="x-icon"></i>
+						</button>
+					</div>
+				</form>
+			</motion.div>
+		</AnimatePresence>
 	);
 	return ReactDOM.createPortal(modal, document.getElementById('modal-hook'));
 };
 
 const Modal = (props) => {
+	useEffect(() => {
+		feather.replace();
+	});
+
 	return (
-		<div>
-			{props.show && <BackDrop onClick={props.hide} />}
+		<motion.div className="modal--container">
+			{props.show && (
+				<BackDrop onClick={props.hide} variants={backdropAnimations} />
+			)}
 			{props.show && <ModalOverlay {...props} />}
-		</div>
+		</motion.div>
 	);
 };
 

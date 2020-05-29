@@ -38,6 +38,7 @@
 
 .btn-add:active {
 	border: none;
+	outline: none;
 }
 
 .add-icon {

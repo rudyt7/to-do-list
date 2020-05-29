@@ -1,13 +1,67 @@
-.input {
-  width: 100%;
-  box-sizing: border-box;
-  border: 0;
-  border-radius: 4px;
-  box-shadow: none;
-  padding: 1rem;
-  height: 2.25em;
+.form__container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 label {
-  font-size: 1.5em;
+	font-size: 16px;
+	font-weight: 100;
+}
+
+input,
+textarea,
+select {
+	border: none;
+	outline: none;
+	background: #e9eef7;
+	margin: 20px;
+	margin-bottom: 25px;
+	font-size: 16px;
+	font-weight: 100;
+	transition: box-shadow 400ms ease-out;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+	scale: 1.1;
+	box-shadow: 10px 10px 20px #cdd1d9, -10px -10px 20px #ffffff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
+		-9px -9px 16px rgba(255, 255, 255, 0.5),
+		inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+}
+
+.input-title {
+	height: 50px;
+	padding: 25px;
+	border-radius: 12px;
+	box-shadow: 5px 5px 10px #cdd1d9, -5px -5px 10px #ffffff;
+}
+
+.input-description {
+	height: 200px;
+	padding: 25px;
+	border-radius: 12px;
+	resize: none;
+	box-shadow: 5px 5px 10px #cdd1d9, -5px -5px 10px #ffffff;
+}
+
+.input-date {
+	height: 50px;
+	padding: 25px;
+	border-radius: 12px;
+	box-shadow: 5px 5px 10px #cdd1d9, -5px -5px 10px #ffffff;
+}
+
+.input-type {
+	appearance: none;
+	padding: 20px 20px 20px 20px;
+	border-radius: 12px;
+	box-shadow: 5px 5px 10px #cdd1d9, -5px -5px 10px #ffffff;
 }
