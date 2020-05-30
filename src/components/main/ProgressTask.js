@@ -41,7 +41,7 @@ const ProgressTask = (props) => {
 
 	return (
 		<div>
-			<ul>
+			<ul style={{ listStyle: 'none' }}>
 				<AnimatePresence initial={true}>{ListJsx}</AnimatePresence>
 			</ul>
 		</div>

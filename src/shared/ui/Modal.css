@@ -8,6 +8,7 @@
 	height: 50rem;
 	border-radius: 40px;
 	padding: 3rem;
+	font-family: 'Itim', cursive;
 }
 
 .modal__btn-container {
@@ -16,9 +17,11 @@
 }
 
 .modal__btn {
+	/* font-family: 'Itim', cursive;*/
+	font-family: 'Montserrat', sans-serif;
 	height: 50px;
-	font-size: 16px;
-	font-weight: 100;
+	font-size: 18px;
+	font-weight: 400;
 	padding: 15px;
 	margin: 15px;
 	outline: none;
@@ -43,7 +46,7 @@
 	position: relative;
 	float: left;
 	left: -8px;
-	top: -6px;
+	top: -3px;
 }
 
 .clear-icon {
@@ -52,7 +55,7 @@
 	position: relative;
 	float: left;
 	left: -8px;
-	top: -5px;
+	top: -2px;
 }
 
 .x-icon {

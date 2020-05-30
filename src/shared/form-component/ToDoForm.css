@@ -20,12 +20,12 @@ select {
 	font-size: 16px;
 	font-weight: 100;
 	transition: box-shadow 300ms ease-out;
+	font-family: 'Itim', cursive;
 }
 
 input:hover,
 textarea:hover,
 select:hover {
-	scale: 1.1;
 	box-shadow: 10px 10px 20px #cdd1d9, -10px -10px 20px #ffffff;
 }
 
@@ -68,4 +68,5 @@ select:focus {
 	border-radius: 12px;
 	box-shadow: 5px 5px 10px #cdd1d9, -5px -5px 10px #ffffff;
 	width: 20rem;
+	cursor: pointer;
 }

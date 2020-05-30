@@ -20,8 +20,9 @@
 }
 
 .tabs__item {
-	font-size: 18px;
-	font-weight: 100;
+	/* font-family: 'Itim', cursive; */
+	font-size: 17px;
+	font-weight: 400;
 	height: 50px;
 	width: 120px;
 	border-radius: 15px;
