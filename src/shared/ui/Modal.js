@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as feather from 'feather-icons';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -43,8 +43,6 @@ const backdropAnimations = {
 };
 
 const ModalOverlay = (props) => {
-	const [isComplete, setIsComplete] = useState(false);
-
 	const submitForm = (event) => {
 		event.preventDefault();
 	};
@@ -55,7 +53,7 @@ const ModalOverlay = (props) => {
 		const date = document.getElementById('date').value;
 		const type = document.getElementById('type').value;
 
-		if (title === '' || date === '') {
+		if (!title || !date) {
 			return;
 		}
 
