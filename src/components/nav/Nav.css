@@ -1,122 +1,122 @@
 .nav {
-	border-radius: 25px;
-	background: #ececec;
-	border-radius: 20px;
-	box-shadow: 5px 5px 10px #c9c9c9, 0px -2px 10px #ffffff;
-	flex: 0 0 25%;
-	padding: 1rem;
-	margin-top: 1rem;
-	transition: 0.3s;
-	font-size: 1.6rem;
-	text-align: center;
-	display: flex;
-	justify-content: space-between;
-	list-style: none;
-	flex-direction: column;
+  border-radius: 25px;
+  background: #ececec;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px #c9c9c9, 0px -2px 10px #ffffff;
+  flex: 0 0 25%;
+  padding: 1rem;
+  margin-top: 1rem;
+  transition: 0.3s;
+  font-size: 1.6rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  flex-direction: column;
 }
 
 .nav__toggle {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .nav__toggle-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 5px 10px 5px;
-	margin: 20px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px 10px 5px;
+  margin: 20px 0 0;
 }
 
 .nav__title {
-	font-size: 25px;
-	margin: 15px 0 20px;
-	color: #444444;
-	font-weight: 400;
-	text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1),
-		-5px -5px 10px rgba(255, 255, 255, 1);
+  font-size: 25px;
+  margin: 20px 0;
+  color: #555555;
+  font-weight: 400;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1),
+    -5px -5px 10px rgba(255, 255, 255, 1);
 }
 
 .nav__title-icon {
-	height: 30px;
-	width: 30px;
-	margin-right: 10px;
-	stroke-width: 0.5px;
-	position: relative;
-	top: 7px;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+  stroke-width: 0.5px;
+  position: relative;
+  top: 7px;
 }
 
 .nav__underline {
-	margin-top: 30px;
-	width: 100%;
-	height: 5px;
-	border-radius: 90px;
-	background: #ececec;
-	box-shadow: inset 1px 1px 3px #c9c9c9, inset -1px -1px 3px #ffffff;
+  margin-top: 10px;
+  width: 100%;
+  height: 5px;
+  border-radius: 90px;
+  background: #ececec;
+  box-shadow: inset 1px 1px 3px #c9c9c9, inset -1px -1px 3px #ffffff;
 }
 
 .label-title {
-	display: inline;
+  display: inline;
 }
 
 .nav__label {
-	border-radius: 13px;
-	font-weight: 300;
-	background: #ececec;
-	height: 47px;
-	padding: 0 10px 20px 5px;
-	transition: box-shadow 200ms ease-out;
+  border-radius: 13px;
+  font-weight: 300;
+  background: #ececec;
+  height: 47px;
+  padding: 0 10px 20px 5px;
+  transition: box-shadow 200ms ease-out;
 }
 
 .nav__label.on {
-	box-shadow: 10px 10px 20px #c9c9c9, -10px -10px 20px #ffffff;
+  box-shadow: 10px 10px 20px #c9c9c9, -10px -10px 20px #ffffff;
 }
 
 .nav-icon {
-	height: 30px;
-	stroke-width: 0.5px;
-	margin: 0 15px 0 0px;
-	position: relative;
-	top: 8px;
+  height: 30px;
+  stroke-width: 0.5px;
+  margin: 0 15px 0 0px;
+  position: relative;
+  top: 8px;
 }
 
 .nav-toggle {
-	outline: none;
-	border: none;
-	width: 51px;
-	height: 30px;
-	padding: 4px;
-	border-radius: 30px;
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	transition: all 0.3s ease-out;
-	background-color: #ececec;
-	box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
-		-9px -9px 16px rgba(255, 255, 255, 0.5),
-		inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+  outline: none;
+  border: none;
+  width: 51px;
+  height: 30px;
+  padding: 4px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  background-color: #ececec;
+  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5),
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
 }
 
 .nav-toggle.on {
-	background-color: #ececec;
-	box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
-		-9px -9px 16px rgba(255, 255, 255, 0.5),
-		inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
+  background-color: #ececec;
+  box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5),
+    inset 3px 3px 7px rgba(136, 165, 191, 0.48), inset -3px -3px 7px #ffffff;
 }
 
 .nav-toggle div {
-	width: 24px;
-	height: 24px;
-	border-radius: 200px;
-	transition: all 0.3s ease-out;
-	transform: translateX(0px);
-	background-color: #ececec;
-	box-shadow: -8px -4px 8px 0px #ffffff88, 8px 4px 12px 0px #d1d9e6;
+  width: 24px;
+  height: 24px;
+  border-radius: 200px;
+  transition: all 0.3s ease-out;
+  transform: translateX(0px);
+  background-color: #ececec;
+  box-shadow: -8px -4px 8px 0px #ffffff88, 8px 4px 12px 0px #d1d9e6;
 }
 
 .nav-toggle.on div {
-	background-color: #5cc74e;
-	transform: translateX(18px);
-	box-shadow: -8px -4px 8px 0px #ffffff8e, 8px 4px 12px 0px #d1d9e6;
+  background-color: #5cc74e;
+  transform: translateX(18px);
+  box-shadow: -8px -4px 8px 0px #ffffff8e, 8px 4px 12px 0px #d1d9e6;
 }
