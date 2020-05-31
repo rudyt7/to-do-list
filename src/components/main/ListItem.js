@@ -16,12 +16,16 @@ const iconAnimations = {
 
 const displayAnimations = {
 	initial: {
-		display: 'none',
+		opacity: 0,
 		height: 0,
 	},
 	final: {
-		display: 'block',
+		opacity: 1,
 		height: 50,
+	},
+	transition: {
+		when: 'beforeChildren',
+		staggerChildren: 0.1,
 	},
 };
 
@@ -79,39 +83,118 @@ const ListItem = (props) => {
 	if (props.complete) {
 		if (actionContext.action === 'all') {
 			listItem = (
-				<div className="list-item__container">
-					<h1 className="list-item__title">{props.title}</h1>
-					<div className="list-item__description">{props.children}</div>
-					<div className="list-item__date">{props.date}</div>
-					<div className="list-item__type">{props.type}</div>
-					<div
-						className="list-item__btn btn-complete disabled"
-						onClick={completeHandler}
-					>
-						<i data-feather="check-square" className="icon icon-complete"></i>
+				<motion.div className="list-item__container">
+					<div className="list-item__header">
+						<h1 className="list-item__title">{props.title}</h1>
+						<div className="list-item__type">{props.type}</div>
+						{props.children && (
+							<motion.div
+								className="list-item__icon-container"
+								whileHover={{ scale: 1.2 }}
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={iconAnimations}
+								onTap={displayDescriptionHandler}
+							>
+								<motion.i
+									data-feather="chevron-down"
+									className="list-item__icon"
+								></motion.i>
+							</motion.div>
+						)}
 					</div>
-					<div className="list-item__btn btn-undo" onClick={unCompleteHandler}>
-						<i data-feather="corner-down-left" className="icon icon-undo"></i>
+					<div className="list-item__underline"></div>
+					{props.children && (
+						<AnimatePresence>
+							<motion.div
+								id="item__description"
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={displayAnimations}
+								className="list-item__description"
+							>
+								{props.children}
+							</motion.div>
+						</AnimatePresence>
+					)}
+					<div className="list-item__footer">
+						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__buttons">
+							<div
+								className="list-item__btn  btn-complete disabled"
+								onClick={completeHandler}
+							>
+								<i
+									data-feather="check-square"
+									className="icon icon-complete"
+								></i>
+							</div>
+							<div
+								className="list-item__btn  btn-undo"
+								onClick={unCompleteHandler}
+							>
+								<i
+									data-feather="corner-down-left"
+									className="icon icon-undo"
+								></i>
+							</div>
+							<div className="list-item__btn" onClick={deleteHandler}>
+								<i data-feather="trash" className="icon icon-delete"></i>
+							</div>
+						</div>
 					</div>
-					<div className="list-item__btn" onClick={deleteHandler}>
-						<i data-feather="trash" className="icon icon-delete"></i>
-					</div>
-				</div>
+				</motion.div>
 			);
 		} else if (actionContext.action === 'completed') {
 			listItem = (
-				<div className="list-item__container">
-					<h1 className="list-item__title">{props.title}</h1>
-					<div className="list-item__description">{props.children}</div>
-					<div className="list-item__date">{props.date}</div>
-					<div className="list-item__type">{props.type}</div>
-					<div className="list-item__btn btn-undo" onClick={unCompleteHandler}>
-						<i data-feather="corner-down-left" className="icon icon-undo"></i>
+				<motion.div className="list-item__container">
+					<div className="list-item__header">
+						<h1 className="list-item__title">{props.title}</h1>
+						<div className="list-item__type">{props.type}</div>
+						{props.children && (
+							<motion.div
+								className="list-item__icon-container"
+								whileHover={{ scale: 1.2 }}
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={iconAnimations}
+								onTap={displayDescriptionHandler}
+							>
+								<motion.i
+									data-feather="chevron-down"
+									className="list-item__icon"
+								></motion.i>
+							</motion.div>
+						)}
 					</div>
-					<div className="list-item__btn" onClick={deleteHandler}>
-						<i data-feather="trash" className="icon icon-delete"></i>
+					<div className="list-item__underline"></div>
+					{props.children && (
+						<AnimatePresence>
+							<motion.div
+								id="item__description"
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={displayAnimations}
+								className="list-item__description"
+							>
+								{props.children}
+							</motion.div>
+						</AnimatePresence>
+					)}
+					<div className="list-item__footer">
+						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__buttons">
+							<div
+								className="list-item__btn  btn-undo"
+								onClick={unCompleteHandler}
+							>
+								<i
+									data-feather="corner-down-left"
+									className="icon icon-undo"
+								></i>
+							</div>
+							<div className="list-item__btn" onClick={deleteHandler}>
+								<i data-feather="trash" className="icon icon-delete"></i>
+							</div>
+						</div>
 					</div>
-				</div>
+				</motion.div>
 			);
 		}
 	} else if (props.progress) {
@@ -121,37 +204,34 @@ const ListItem = (props) => {
 					<div className="list-item__header">
 						<h1 className="list-item__title">{props.title}</h1>
 						<div className="list-item__type">{props.type}</div>
-						<motion.div
-							className="list-item__icon-container"
-							whileHover={{ scale: 1.2 }}
-							animate={displayDescription ? 'final' : 'initial'}
-							variants={iconAnimations}
-							onTap={displayDescriptionHandler}
-						>
-							<motion.i
-								animate="final"
+						{props.children && (
+							<motion.div
+								className="list-item__icon-container"
+								whileHover={{ scale: 1.2 }}
+								animate={displayDescription ? 'final' : 'initial'}
 								variants={iconAnimations}
-								data-feather="chevron-down"
-								className="list-item__icon"
-							></motion.i>
-						</motion.div>
+								onTap={displayDescriptionHandler}
+							>
+								<motion.i
+									data-feather="chevron-down"
+									className="list-item__icon"
+								></motion.i>
+							</motion.div>
+						)}
 					</div>
 					<div className="list-item__underline"></div>
-					<AnimatePresence>
-						<motion.div
-							initial="initial"
-							id="item__description"
-							animate={displayDescription ? 'final' : 'initial'}
-							variants={displayAnimations}
-							className="list-item__description"
-							exit={{
-								display: 'none',
-								height: 0,
-							}}
-						>
-							{props.children}
-						</motion.div>
-					</AnimatePresence>
+					{props.children && (
+						<AnimatePresence>
+							<motion.div
+								id="item__description"
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={displayAnimations}
+								className="list-item__description"
+							>
+								{props.children}
+							</motion.div>
+						</AnimatePresence>
+					)}
 					<div className="list-item__footer">
 						<div className="list-item__date">{props.date}</div>
 						<div className="list-item__buttons">
@@ -182,34 +262,101 @@ const ListItem = (props) => {
 			);
 		} else if (actionContext.action === 'progress') {
 			listItem = (
-				<div className="list-item__container">
-					<h1 className="list-item__title">{props.title}</h1>
-					<div className="list-item__description">{props.children}</div>
-					<div className="list-item__date">{props.date}</div>
-					<div className="list-item__type">{props.type}</div>
-					<div
-						className="list-item__btn  btn-complete"
-						onClick={completeHandler}
-					>
-						<i data-feather="check-square" className="icon icon-complete"></i>
+				<motion.div className="list-item__container">
+					<div className="list-item__header">
+						<h1 className="list-item__title">{props.title}</h1>
+						<div className="list-item__type">{props.type}</div>
+						{props.children && (
+							<motion.div
+								className="list-item__icon-container"
+								whileHover={{ scale: 1.2 }}
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={iconAnimations}
+								onTap={displayDescriptionHandler}
+							>
+								<motion.i
+									data-feather="chevron-down"
+									className="list-item__icon"
+								></motion.i>
+							</motion.div>
+						)}
 					</div>
-					<div className="list-item__btn" onClick={deleteHandler}>
-						<i data-feather="trash" className="icon icon-delete"></i>
+					<div className="list-item__underline"></div>
+					{props.children && (
+						<AnimatePresence>
+							<motion.div
+								id="item__description"
+								animate={displayDescription ? 'final' : 'initial'}
+								variants={displayAnimations}
+								className="list-item__description"
+							>
+								{props.children}
+							</motion.div>
+						</AnimatePresence>
+					)}
+					<div className="list-item__footer">
+						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__buttons">
+							<div
+								className="list-item__btn  btn-complete"
+								onClick={completeHandler}
+							>
+								<i
+									data-feather="check-square"
+									className="icon icon-complete"
+								></i>
+							</div>
+							<div className="list-item__btn" onClick={deleteHandler}>
+								<i data-feather="trash" className="icon icon-delete"></i>
+							</div>
+						</div>
 					</div>
-				</div>
+				</motion.div>
 			);
 		}
 	} else if (props.missed) {
 		listItem = (
-			<div className="list-item__container">
-				<h1 className="list-item__title">{props.title}</h1>
-				<div className="list-item__description">{props.children}</div>
-				<div className="list-item__date">{props.date}</div>
-				<div className="list-item__type">{props.type}</div>
-				<div className="list-item__btn" onClick={deleteHandler}>
-					<i data-feather="trash" className="icon"></i>
+			<motion.div className="list-item__container">
+				<div className="list-item__header">
+					<h1 className="list-item__title">{props.title}</h1>
+					<div className="list-item__type">{props.type}</div>
+					{props.children && (
+						<motion.div
+							className="list-item__icon-container"
+							whileHover={{ scale: 1.2 }}
+							animate={displayDescription ? 'final' : 'initial'}
+							variants={iconAnimations}
+							onTap={displayDescriptionHandler}
+						>
+							<motion.i
+								data-feather="chevron-down"
+								className="list-item__icon"
+							></motion.i>
+						</motion.div>
+					)}
 				</div>
-			</div>
+				<div className="list-item__underline"></div>
+				{props.children && (
+					<AnimatePresence>
+						<motion.div
+							id="item__description"
+							animate={displayDescription ? 'final' : 'initial'}
+							variants={displayAnimations}
+							className="list-item__description"
+						>
+							{props.children}
+						</motion.div>
+					</AnimatePresence>
+				)}
+				<div className="list-item__footer">
+					<div className="list-item__date">{props.date}</div>
+					<div className="list-item__buttons">
+						<div className="list-item__btn" onClick={deleteHandler}>
+							<i data-feather="trash" className="icon icon-delete"></i>
+						</div>
+					</div>
+				</div>
+			</motion.div>
 		);
 	}
 
