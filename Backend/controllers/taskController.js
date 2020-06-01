@@ -1,6 +1,16 @@
+const mongoose = require('mongoose');
+const { validationResult } = require('express-validator');
+
 const Task = require('../models/task');
+const User = require('../models/user');
+const HttpError = require('../models/httpError');
 
 exports.createTask = async (req, res, next) => {
+	const error = validationResult(req);
+	if (!error.isEmpty()) {
+		return next(new HttpError('Check Your Data', 422));
+	}
+
 	const {
 		title,
 		description,
@@ -9,8 +19,19 @@ exports.createTask = async (req, res, next) => {
 		progress,
 		missed,
 		type,
-		// user,
+		userId,
 	} = req.body;
+
+	let user;
+	try {
+		user = await User.findById(userId);
+		if (!user) {
+			return next(new HttpError('Could not find User', 404));
+		}
+	} catch (error) {
+		console.log('here');
+		return next(new HttpError('Creating Task Failed', 500));
+	}
 
 	const newTask = new Task({
 		title,
@@ -20,26 +41,40 @@ exports.createTask = async (req, res, next) => {
 		progress,
 		missed,
 		type,
+		userId,
 	});
 
 	try {
-		await newTask.save();
+		const session = await mongoose.startSession();
+		session.startTransaction();
+		await newTask.save({ session: session });
+		user.tasks.push(newTask);
+		await user.save({ session: session });
+		await session.commitTransaction();
 	} catch (error) {
-		console.log('could not create task');
+		console.log('here');
+		return next(new HttpError('failed to create task', 500));
 	}
 
 	res.status(201).json({ newTask });
-}; // C
+};
 
-exports.getAllTasks = (req, res, next) => {}; // R
+exports.getAllTasks = (req, res, next) => {};
 
 exports.deleteTaskById = async (req, res, next) => {
 	const taskId = req.params.taskId;
+	let task;
 	try {
-		await Task.findByIdAndDelete(taskId);
+		const session = await mongoose.startSession();
+		session.startTransaction();
+		task = await Task.findByIdAndDelete(taskId).populate('userId');
+		console.log(task);
+		task.userId.tasks.pull(task);
+		await task.userId.save({ session: session });
+		await session.commitTransaction();
 	} catch {
-		console.log('Failed to Delete Task');
+		return next(new HttpError('Failed to delete task', 500));
 	}
 
 	res.status(200).json({ message: 'Successfully deleted' });
-}; // D
+};
