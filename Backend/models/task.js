@@ -10,7 +10,7 @@ const taskSchema = new Schema({
 	progress: { type: Boolean, required: true },
 	missed: { type: Boolean, required: true },
 	type: { type: String, required: true },
-	user: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
+	// user: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
 });
 
 module.exports = mongoose.model('Task', taskSchema);
