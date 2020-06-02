@@ -14,7 +14,7 @@ exports.userSignup = async (req, res, next) => {
 	try {
 		existingUser = await User.findOne({ email: email });
 		if (existingUser) {
-			return next(new HttpError('Check Your Input Data', 500));
+			return next(new HttpError('User Already Exists', 500));
 		}
 	} catch (error) {
 		return next(new HttpError('Connection Error', 500));
@@ -33,7 +33,7 @@ exports.userSignup = async (req, res, next) => {
 		return next(new HttpError('Connection Error', 500));
 	}
 
-	res.status(201).json({ message: 'User Created Successfully' });
+	res.status(201).json({ user: newUser.toObject({ getters: true }) });
 };
 
 exports.userLogin = async (req, res, next) => {

@@ -1,0 +1,122 @@
+.auth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+}
+
+.auth__container {
+	width: 30rem;
+	height: 40rem;
+	perspective: 100rem;
+	-moz-perspective: 100rem;
+	-webkit-perspective: 100rem;
+	border-radius: 20px;
+	padding: 5px;
+	transition: all 0.7s ease-out;
+}
+
+.auth__container--signup {
+	height: 40rem;
+	position: absolute;
+	transition: all 1s ease;
+	background: #ececec;
+	width: 100%;
+	backface-visibility: hidden;
+	border-radius: 1.5rem;
+	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+	overflow: hidden;
+}
+
+.auth__container--login {
+	height: 40rem;
+	transition: all 1s ease;
+	background: #ececec;
+	width: 100%;
+	backface-visibility: hidden;
+	border-radius: 1.5rem;
+	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+	overflow: hidden;
+}
+
+.auth__container--login {
+	transform: rotateY(180deg);
+}
+
+.auth__container .auth__container--signup.flip {
+	transform: rotateY(-180deg);
+}
+.auth__container .auth__container--login.flip {
+	transform: rotateY(0);
+}
+
+.auth__btn {
+	width: 100px;
+	height: 50px;
+	background: white;
+	z-index: 1;
+	margin-top: 10rem;
+}
+
+/* 
+card {
+	perspective: 100rem;
+	-moz-perspective: 100rem;
+	-webkit-perspective: 100rem;
+	position: relative;
+	height: 50rem;
+}
+.card__side {
+	height: 50rem;
+	transition: all 1s ease;
+	background-color: red;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	backface-visibility: hidden;
+	border-radius: 1.5rem;
+	box-shadow: 0 0.75rem 1rem rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+}
+.card__side--front {
+	background-color: white;
+}
+.card__side--back {
+	transform: rotateY(180deg);
+}
+
+.card:hover .card__side--front {
+	transform: rotateY(-180deg);
+}
+.card:hover .card__side--back {
+	transform: rotateY(0);
+}
+
+.card__cta {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90%;
+	text-align: center;
+}
+.card__price-box {
+	text-align: center;
+	color: black;
+	margin-bottom: 8rem;
+}
+.card__price-only {
+	font-size: 1.4rem;
+	text-transform: uppercase;
+}
+.card__price-value {
+	font-size: 6rem;
+	font-weight: 100;
+} */

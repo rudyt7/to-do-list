@@ -15,7 +15,7 @@
 }
 
 .header__signup--btn {
-	cursor: not-allowed;
+	cursor: pointer;
 	width: 40px;
 	height: 40px;
 	background: #ececec;
