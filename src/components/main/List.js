@@ -5,6 +5,8 @@ import './List.css';
 
 import ListItem from './ListItem';
 import Modal from '../../shared/ui/Modal';
+import ErrorModal from '../../shared/ui/ErrorModal';
+import LoadingSpinner from '../../shared/ui/LoadingSpinner';
 import ToDoForm from '../../shared/form-component/ToDoForm';
 import CompletedTasks from './CompletedTask';
 import MissedTasks from './MissedTask';
@@ -39,21 +41,26 @@ const List = () => {
 
 	useEffect(() => {
 		const getTaskList = async () => {
-			if (auth.isLoggedIn && auth.userId) {
-				const taskObject = await sendRequest(
-					`http://localhost:8080/api/tasks/${auth.userId}`
-				);
-				const taskList = [...taskObject.tasks].map((task) => ({
-					...task,
-					id: task._id,
-				}));
-				setToDoList(taskList);
-			} else {
-				setToDoList([]);
-			}
+			try {
+				if (auth.isLoggedIn && auth.userId) {
+					const taskObject = await sendRequest(
+						`${process.env.REACT_APP_BACKEND_URL}/tasks/${auth.userId}`,
+						'GET',
+						null,
+						{ Authorization: `Bearer ${auth.token}` }
+					);
+					const taskList = [...taskObject.tasks].map((task) => ({
+						...task,
+						id: task._id,
+					}));
+					setToDoList(taskList);
+				} else {
+					setToDoList([]);
+				}
+			} catch (error) {}
 		};
 		getTaskList();
-	}, [sendRequest, auth.isLoggedIn, auth.userId]);
+	}, [sendRequest, auth.isLoggedIn, auth.userId, auth.token]);
 
 	const createList = (type) => {
 		if (type === '') {
@@ -71,15 +78,22 @@ const List = () => {
 		setShowModal(false);
 	};
 
+	const hideErrorModal = () => {
+		clearError();
+	};
+
 	const AddToDoHandler = async (task) => {
 		try {
 			if (auth.isLoggedIn) {
 				const todo = { ...task, userId: auth.userId };
 				const responseData = await sendRequest(
-					'http://localhost:8080/api/tasks',
+					process.env.REACT_APP_BACKEND_URL + '/tasks',
 					'POST',
 					JSON.stringify(todo),
-					{ 'Content-Type': 'application/json' }
+					{
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${auth.token}`,
+					}
 				);
 				const newTask = { ...responseData.newTask, id: todo.id };
 				setToDoList((prevState) => [...prevState, newTask]);
@@ -90,58 +104,72 @@ const List = () => {
 	};
 
 	const removeTaskHandler = async (id) => {
-		if (auth.isLoggedIn && auth.userId) {
-			const task = toDoList.find((todo) => todo.id === id);
-			await sendRequest(
-				`http://localhost:8080/api/tasks/${task._id}`,
-				'DELETE'
-			);
-			const newList = toDoList.filter((element) => element.id !== id);
-			setToDoList(newList);
-		} else {
-			const newList = toDoList.filter((element) => element.id !== id);
-			setToDoList(newList);
-		}
+		try {
+			if (auth.isLoggedIn && auth.userId) {
+				const task = toDoList.find((todo) => todo.id === id);
+				await sendRequest(
+					`${process.env.REACT_APP_BACKEND_URL}/tasks/${task._id}`,
+					'DELETE',
+					null,
+					{ Authorization: `Bearer ${auth.token}` }
+				);
+				const newList = toDoList.filter((element) => element.id !== id);
+				setToDoList(newList);
+			} else {
+				const newList = toDoList.filter((element) => element.id !== id);
+				setToDoList(newList);
+			}
+		} catch (error) {}
 	};
 
 	const completeTaskHandler = async (id) => {
-		if (auth.isLoggedIn && auth.userId) {
-			const task = toDoList.find((element) => element.id === id);
-			await sendRequest(
-				`http://localhost:8080/api/tasks/`,
-				'PATCH',
-				JSON.stringify({ taskId: task._id, status: 'completed' }),
-				{ 'Content-Type': 'application/json' }
-			);
-		}
-		const index = toDoList.findIndex((element) => element.id === id);
-		const task = { ...toDoList[index] };
-		task.completed = true;
-		task.progress = false;
-		const updatedTask = { ...task };
-		const newList = [...toDoList];
-		newList[index] = updatedTask;
-		setToDoList(newList);
+		try {
+			if (auth.isLoggedIn && auth.userId) {
+				const task = toDoList.find((element) => element.id === id);
+				await sendRequest(
+					`${process.env.REACT_APP_BACKEND_URL}/tasks/`,
+					'PATCH',
+					JSON.stringify({ taskId: task._id, status: 'completed' }),
+					{
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${auth.token}`,
+					}
+				);
+			}
+			const index = toDoList.findIndex((element) => element.id === id);
+			const task = { ...toDoList[index] };
+			task.completed = true;
+			task.progress = false;
+			const updatedTask = { ...task };
+			const newList = [...toDoList];
+			newList[index] = updatedTask;
+			setToDoList(newList);
+		} catch (error) {}
 	};
 
 	const unCompleteTaskHandler = async (id) => {
-		if (auth.isLoggedIn && auth.userId) {
-			const task = toDoList.find((element) => element.id === id);
-			await sendRequest(
-				`http://localhost:8080/api/tasks/`,
-				'PATCH',
-				JSON.stringify({ taskId: task._id, status: 'progress' }),
-				{ 'Content-Type': 'application/json' }
-			);
-		}
-		const index = toDoList.findIndex((element) => element.id === id);
-		const task = { ...toDoList[index] };
-		task.completed = false;
-		task.progress = true;
-		const updatedTask = { ...task };
-		const newList = [...toDoList];
-		newList[index] = updatedTask;
-		setToDoList(newList);
+		try {
+			if (auth.isLoggedIn && auth.userId) {
+				const task = toDoList.find((element) => element.id === id);
+				await sendRequest(
+					`${process.env.REACT_APP_BACKEND_URL}/tasks/`,
+					'PATCH',
+					JSON.stringify({ taskId: task._id, status: 'progress' }),
+					{
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${auth.token}`,
+					}
+				);
+			}
+			const index = toDoList.findIndex((element) => element.id === id);
+			const task = { ...toDoList[index] };
+			task.completed = false;
+			task.progress = true;
+			const updatedTask = { ...task };
+			const newList = [...toDoList];
+			newList[index] = updatedTask;
+			setToDoList(newList);
+		} catch (error) {}
 	};
 
 	createList(labelContext.label);
@@ -168,6 +196,8 @@ const List = () => {
 
 	return (
 		<div className="list">
+			{<ErrorModal error={error} show={errorModal} hide={hideErrorModal} />}
+			{isLoading && <LoadingSpinner asOverlay />}
 			<Modal show={showModal} hide={hideModalHandler} addTask={AddToDoHandler}>
 				<ToDoForm />
 			</Modal>

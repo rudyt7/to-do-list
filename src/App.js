@@ -11,16 +11,16 @@ import ActionContextProvider from './context/ActionContext';
 import { AuthContext } from './context/AuthContext';
 
 const App = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [token, setToken] = useState(false);
 	const [userId, setUserId] = useState(null);
 
-	const loginHandler = useCallback((uid) => {
-		setIsLoggedIn(true);
+	const loginHandler = useCallback((uid, token) => {
+		setToken(token);
 		setUserId(uid);
 	}, []);
 
 	const logoutHandler = useCallback(() => {
-		setIsLoggedIn(false);
+		setToken(null);
 		setUserId(null);
 	}, []);
 
@@ -46,7 +46,7 @@ const App = () => {
 			<Route path="/to-do-list" exact>
 				{content}
 			</Route>
-			{!isLoggedIn && (
+			{!token && (
 				<Route path="/to-do-list/auth" exact>
 					<Auth />
 				</Route>
@@ -58,7 +58,8 @@ const App = () => {
 	return (
 		<AuthContext.Provider
 			value={{
-				isLoggedIn: isLoggedIn,
+				isLoggedIn: !!token,
+				token: token,
 				userId: userId,
 				login: loginHandler,
 				logout: logoutHandler,

@@ -37,7 +37,6 @@ const Auth = () => {
 	const [password, setPassword] = useState(false);
 	const [loginValid, setLoginValid] = useState(false);
 	const [signUpValid, setSignUpValid] = useState(false);
-
 	const history = useHistory();
 
 	const {
@@ -120,7 +119,7 @@ const Auth = () => {
 		if (!flip) {
 			try {
 				responseData = await sendRequest(
-					'http://localhost:8080/api/users/signup',
+					process.env.REACT_APP_BACKEND_URL + '/users/signup',
 					'POST',
 					JSON.stringify({
 						name: document.getElementById('signupName').value,
@@ -129,14 +128,14 @@ const Auth = () => {
 					}),
 					{ 'Content-Type': 'application/json' }
 				);
+				auth.login(responseData.user.id, responseData.token);
+				history.replace('/to-do-list');
 			} catch (error) {}
-			auth.login(responseData.user.id);
-			history.replace('/to-do-list');
 		} else {
 			let responseData;
 			try {
 				responseData = await sendRequest(
-					'http://localhost:8080/api/users/login',
+					process.env.REACT_APP_BACKEND_URL + '/users/login',
 					'POST',
 					JSON.stringify({
 						email: document.getElementById('loginEmail').value,
@@ -144,9 +143,9 @@ const Auth = () => {
 					}),
 					{ 'Content-Type': 'application/json' }
 				);
+				auth.login(responseData.user.id, responseData.token);
+				history.replace('/to-do-list');
 			} catch (error) {}
-			auth.login(responseData.user.id);
-			history.replace('/to-do-list');
 		}
 	};
 

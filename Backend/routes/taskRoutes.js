@@ -2,7 +2,10 @@ const express = require('express');
 const { check } = require('express-validator');
 
 const taskController = require('../controllers/taskController');
+const auth = require('../middleware/auth');
 const router = express.Router();
+
+router.use(auth);
 
 router.get('/:userId', taskController.getUserTasks);
 

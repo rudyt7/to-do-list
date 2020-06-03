@@ -14,7 +14,10 @@ app.use((req, res, next) => {
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 	);
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+	res.setHeader(
+		'Access-Control-Allow-Methods',
+		'GET, POST, PATCH, DELETE, OPTIONS'
+	);
 	next();
 });
 
@@ -36,10 +39,13 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-	.connect('mongodb+srv://rudy7:qwerty123@cluster0-nxj3i.mongodb.net/todo', {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
+	.connect(
+		`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-nxj3i.mongodb.net/${process.env.DB_COLLECTION}`,
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		}
+	)
 	.then(() => {
 		console.log('connected');
 		app.listen(8080);
