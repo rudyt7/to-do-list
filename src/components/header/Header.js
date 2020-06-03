@@ -11,7 +11,7 @@ const Header = (props) => {
 		<header className="header">
 			<h1 className="header__title">Task-A-Lot</h1>
 			{!auth.isLoggedIn && (
-				<Link to="/auth">
+				<Link to="/to-do-list/auth">
 					<div className="header__signup--btn" aria-label="login-button">
 						<i data-feather="user" className="header-icon"></i>
 					</div>

@@ -35,21 +35,22 @@ const App = () => {
 	if (!auth.isLoggedIn) {
 		routes = (
 			<Switch>
-				<Route path="/" exact>
+				<Route path="/to-do-list" exact>
 					{content}
 				</Route>
-				<Route path="/auth" exact>
+				<Route path="/to-do-list/auth" exact>
 					<Auth />
 				</Route>
+				<Redirect to="/to-do-list" />
 			</Switch>
 		);
 	} else {
 		routes = (
 			<Switch>
-				<Route path="/" exact>
+				<Route path="/to-do-list" exact>
 					{content}
 				</Route>
-				<Redirect to="/" />
+				<Redirect to="/to-do-list" />
 			</Switch>
 		);
 	}

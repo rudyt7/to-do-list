@@ -9,7 +9,7 @@ exports.userSignup = async (req, res, next) => {
 	}
 
 	const { name, email, password } = req.body;
-
+	console.log(name, email, password);
 	let existingUser;
 	try {
 		existingUser = await User.findOne({ email: email });
@@ -46,11 +46,12 @@ exports.userLogin = async (req, res, next) => {
 	let user;
 	try {
 		user = await User.findOne({ email: email });
+		if (user.password === password) {
+			res.status(200).json({ message: 'successfully logged In' });
+		} else {
+			return next(new HttpError('Enter Valid Credentials', 422));
+		}
 	} catch (error) {
 		return next(new HttpError('Enter Valid Credentials', 422));
-	}
-
-	if (user.password === password) {
-		res.status(200).json({ message: 'successfully logged In' });
 	}
 };

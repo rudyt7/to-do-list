@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import './Auth.css';
 
-import { AuthContext } from '../../context/AuthContext.js';
+import { AuthContext } from '../../context/AuthContext';
+import LoadingSpinner from '../../shared/ui/LoadingSpinner';
+import ErrorModal from '../../shared/ui/ErrorModal';
 
 const validate = (value, type) => {
 	if (type === 'text') {
@@ -34,6 +36,9 @@ const Auth = () => {
 	const [password, setPassword] = useState(false);
 	const [loginValid, setLoginValid] = useState(false);
 	const [signUpValid, setSignUpValid] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [error, setError] = useState();
 
 	const checkFormValid = () => {
 		if (!flip) {
@@ -97,8 +102,13 @@ const Auth = () => {
 		}
 	};
 
+	const hideModalHandler = () => {
+		setShowModal(false);
+	};
+
 	const authSubmitHandler = async (event) => {
 		event.preventDefault();
+		setIsLoading(true);
 		if (!flip) {
 			try {
 				const response = await fetch('http://localhost:8080/api/users/signup', {
@@ -107,78 +117,111 @@ const Auth = () => {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						name,
-						email,
-						password,
+						name: document.getElementById('signupName').value,
+						email: document.getElementById('signupEmail').value,
+						password: document.getElementById('signupPassword').value,
 					}),
 				});
 				const responseData = await response.json();
-				console.log(responseData);
+				if (!response.ok) {
+					throw new Error(responseData.message);
+				}
+				setIsLoading(false);
+				auth.login();
 			} catch (error) {
-				console.log(error);
+				setIsLoading(false);
+				setError(error.message || 'An Unknown Error Occurred');
+				setShowModal(true);
 			}
 		} else {
-			fetch('http://localhost:8080/api/users/signup', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					name,
-					email,
-					password,
-				}),
-			});
+			try {
+				const response = await fetch('http://localhost:8080/api/users/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						email: document.getElementById('loginEmail').value,
+						password: document.getElementById('loginPassword').value,
+					}),
+				});
+				const responseData = await response.json();
+				if (!response.ok) {
+					throw new Error(responseData.message);
+				}
+				console.log(responseData);
+				setIsLoading(false);
+				auth.login();
+			} catch (error) {
+				setIsLoading(false);
+				setError(error.message || 'An Unknown Error Occurred');
+				setShowModal(true);
+			}
 		}
 	};
 
 	return (
-		<main>
-			<article className="auth">
-				<div className="auth__container">
-					<div className="auth__container--signup">
-						<h1>Signup</h1>
-						<form onSubmit={authSubmitHandler}>
-							<input onChange={changeHandler} type="text" placeholder="name" />
-							<input
-								onChange={changeHandler}
-								type="email"
-								placeholder="email"
-							/>
-							<input
-								onChange={changeHandler}
-								type="password"
-								placeholder="password"
-							/>
-							<button type="submit" disabled={!signUpValid}>
-								Sign Up
-							</button>
-						</form>
+		<Fragment>
+			{error && (
+				<ErrorModal error={error} show={showModal} hide={hideModalHandler} />
+			)}
+			{isLoading && <LoadingSpinner asOverlay />}
+			<main>
+				<article className="auth">
+					<div className="auth__container">
+						<div className="auth__container--signup">
+							<h1>Signup</h1>
+							<form onSubmit={authSubmitHandler}>
+								<input
+									id="signupName"
+									onChange={changeHandler}
+									type="text"
+									placeholder="name"
+								/>
+								<input
+									id="signupEmail"
+									onChange={changeHandler}
+									type="email"
+									placeholder="email"
+								/>
+								<input
+									id="signupPassword"
+									onChange={changeHandler}
+									type="password"
+									placeholder="password"
+								/>
+								<button type="submit" disabled={!signUpValid}>
+									Sign Up
+								</button>
+							</form>
+						</div>
+						<div className="auth__container--login">
+							<h1>Login</h1>
+							<form onSubmit={authSubmitHandler}>
+								<input
+									onChange={changeHandler}
+									id="loginEmail"
+									type="email"
+									placeholder="email"
+								/>
+								<input
+									id="loginPassword"
+									onChange={changeHandler}
+									type="password"
+									placeholder="password"
+								/>
+								<button type="submit" disabled={!loginValid}>
+									Sign In
+								</button>
+							</form>
+						</div>
 					</div>
-					<div className="auth__container--login">
-						<h1>Login</h1>
-						<form onSubmit={authSubmitHandler}>
-							<input
-								onChange={changeHandler}
-								type="email"
-								placeholder="email"
-							/>
-							<input
-								onChange={changeHandler}
-								type="password"
-								placeholder="password"
-							/>
-							<button type="submit" disabled={!loginValid}>
-								Sign In
-							</button>
-						</form>
+					<div className="auth__btn" onClick={flipHandler}>
+						Switch to {flip ? 'Sign Up' : 'Sign In'}
 					</div>
-				</div>
-				<div className="auth__btn" onClick={flipHandler}>
-					Switch to {flip ? 'Sign Up' : 'Sign In'}
-				</div>
-			</article>
-		</main>
+				</article>
+			</main>
+		</Fragment>
 	);
 };
 
