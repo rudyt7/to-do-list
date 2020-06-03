@@ -1,67 +1,136 @@
 .auth {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90vh;
+  width: 100vw;
 }
 
 .auth__container {
-	width: 30rem;
-	height: 40rem;
-	perspective: 100rem;
-	-moz-perspective: 100rem;
-	-webkit-perspective: 100rem;
-	border-radius: 20px;
-	padding: 5px;
-	transition: all 0.7s ease-out;
+  width: 30em;
+  height: 40em;
+  perspective: 100rem;
+  -moz-perspective: 100rem;
+  -webkit-perspective: 100rem;
+  border-radius: 20px;
+  transition: all 0.7s ease-out;
 }
 
 .auth__container--signup {
-	height: 40rem;
-	position: absolute;
-	transition: all 1s ease;
-	background: #ececec;
-	width: 100%;
-	backface-visibility: hidden;
-	border-radius: 1.5rem;
-	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
-		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
-		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
-	overflow: hidden;
+  height: 45rem;
+  position: absolute;
+  transition: all 1s ease;
+  background: #ececec;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 2.5em;
+  box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  text-align: center;
+  padding: 35px 0 0;
 }
 
 .auth__container--login {
-	height: 40rem;
-	transition: all 1s ease;
-	background: #ececec;
-	width: 100%;
-	backface-visibility: hidden;
-	border-radius: 1.5rem;
-	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
-		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
-		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
-	overflow: hidden;
+  height: 45rem;
+  transition: all 1s ease;
+  background: #ececec;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 2.5em;
+  box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  text-align: center;
+  padding: 35px 0 0;
 }
 
 .auth__container--login {
-	transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .auth__container .auth__container--signup.flip {
-	transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
 }
 .auth__container .auth__container--login.flip {
-	transform: rotateY(0);
+  transform: rotateY(0);
 }
 
 .auth__btn {
-	width: 100px;
-	height: 50px;
-	background: white;
-	z-index: 1;
-	margin-top: 10rem;
+  width: 120px;
+  height: 30px;
+  z-index: 1;
+  text-align: center;
+  margin-top: 8rem;
+  padding: 10px 0;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-transform: uppercase;
+  background: linear-gradient(#5ccfdb, #67b3f5);
+  transition: box-shadow 399ms ease-in-out;
+}
+
+.back-link {
+  width: 120px;
+  height: 25px;
+  z-index: 1;
+  padding: 8px 0;
+  margin: 5px;
+  border-radius: 20px;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  text-transform: uppercase;
+  background: linear-gradient(#5ccfdb, #67b3f5);
+  transition: box-shadow 399ms ease-in-out;
+}
+
+#signup,
+#signin {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+  width: 80%;
+  background: linear-gradient(#5ccfdb, #67b3f5);
+  box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+    inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(55, 84, 170, 0.15),
+    -7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 399ms ease-in-out;
+  cursor: pointer;
+}
+
+#signup:hover,
+#signin:hover,
+.back-link:hover,
+.auth__btn:hover {
+  box-shadow: inset 7px 7px 15px rgba(47, 79, 175, 0.15),
+    inset -7px -7px 20px #4f9fe6, 0px 0px 4px rgba(255, 255, 255, 0.2);
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+  font-size: 18px;
+  color: #555;
+  padding: 20px 10px 20px 5px;
+  border-radius: 30px;
+  width: 80%;
+}
+
+.heading {
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 /* 

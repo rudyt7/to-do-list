@@ -155,14 +155,14 @@ const Auth = () => {
 				<ErrorModal error={error} show={errorModal} hide={hideModalHandler} />
 			)}
 			{isLoading && <LoadingSpinner asOverlay />}
+			<Link to="/to-do-list/" style={{ textDecoration: 'none' }}>
+				<div className="back-link">Back to Task-A-Lot</div>
+			</Link>
 			<main>
-				<Link to="/to-do-list/">
-					<div>Back</div>
-				</Link>
 				<article className="auth">
 					<div className="auth__container">
 						<div className="auth__container--signup">
-							<h1>Signup</h1>
+							<h1 className="heading">Signup</h1>
 							<form onSubmit={authSubmitHandler}>
 								<input
 									id="signupName"
@@ -182,13 +182,13 @@ const Auth = () => {
 									type="password"
 									placeholder="password"
 								/>
-								<button type="submit" disabled={!signUpValid}>
+								<button type="submit" id="signup" disabled={!signUpValid}>
 									Sign Up
 								</button>
 							</form>
 						</div>
 						<div className="auth__container--login">
-							<h1>Login</h1>
+							<h1 className="heading">Login</h1>
 							<form onSubmit={authSubmitHandler}>
 								<input
 									onChange={changeHandler}
@@ -202,7 +202,7 @@ const Auth = () => {
 									type="password"
 									placeholder="password"
 								/>
-								<button type="submit" disabled={!loginValid}>
+								<button type="submit" id="signin" disabled={!loginValid}>
 									Sign In
 								</button>
 							</form>
