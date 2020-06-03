@@ -1,7 +1,7 @@
 .container {
 	max-width: 100rem;
 	min-height: 95vh;
-	margin: 1.5rem auto;
+	margin: 1rem auto;
 	border-radius: 20px;
 	background: #ececec;
 	box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6),

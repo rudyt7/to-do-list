@@ -1,5 +1,6 @@
-import React, { useState, useContext, Fragment } from 'react';
+import React, { useState, useContext, Fragment, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import * as feather from 'feather-icons';
 import './Auth.css';
 
 import { AuthContext } from '../../context/AuthContext';
@@ -38,6 +39,10 @@ const Auth = () => {
 	const [loginValid, setLoginValid] = useState(false);
 	const [signUpValid, setSignUpValid] = useState(false);
 	const history = useHistory();
+
+	useEffect(() => {
+		feather.replace();
+	}, []);
 
 	const {
 		isLoading,
@@ -155,60 +160,70 @@ const Auth = () => {
 				<ErrorModal error={error} show={errorModal} hide={hideModalHandler} />
 			)}
 			{isLoading && <LoadingSpinner asOverlay />}
-			<Link to="/to-do-list/" style={{ textDecoration: 'none' }}>
-				<div className="back-link">Back to Task-A-Lot</div>
-			</Link>
 			<main>
+				<Link to="/to-do-list/">
+					<div className="auth__back-link">
+						<i data-feather="arrow-left" className="auth__icon"></i>
+						Back
+					</div>
+				</Link>
 				<article className="auth">
 					<div className="auth__container">
 						<div className="auth__container--signup">
-							<h1 className="heading">Signup</h1>
-							<form onSubmit={authSubmitHandler}>
+							<h1 className="auth__heading-signup">Sign Up</h1>
+							<form className="auth__form" onSubmit={authSubmitHandler}>
 								<input
 									id="signupName"
 									onChange={changeHandler}
+									className="auth__signup--name"
 									type="text"
-									placeholder="name"
+									placeholder="Name"
 								/>
 								<input
 									id="signupEmail"
 									onChange={changeHandler}
 									type="email"
-									placeholder="email"
+									className="auth__signup--email"
+									placeholder="Email"
 								/>
 								<input
 									id="signupPassword"
 									onChange={changeHandler}
 									type="password"
-									placeholder="password"
+									className="auth__signup--password"
+									placeholder="Password"
 								/>
+								<br></br>
 								<button type="submit" id="signup" disabled={!signUpValid}>
 									Sign Up
 								</button>
 							</form>
 						</div>
 						<div className="auth__container--login">
-							<h1 className="heading">Login</h1>
-							<form onSubmit={authSubmitHandler}>
+							<h1 className="auth__heading-login">Sign In</h1>
+							<form className="auth__form" onSubmit={authSubmitHandler}>
 								<input
 									onChange={changeHandler}
 									id="loginEmail"
 									type="email"
+									className="auth__login--email"
 									placeholder="email"
 								/>
 								<input
 									id="loginPassword"
 									onChange={changeHandler}
 									type="password"
+									className="auth__login--email"
 									placeholder="password"
 								/>
+								<br></br>
 								<button type="submit" id="signin" disabled={!loginValid}>
 									Sign In
 								</button>
 							</form>
 						</div>
 					</div>
-					<div className="auth__btn" onClick={flipHandler}>
+					<div className="auth__btn--flip" onClick={flipHandler}>
 						Switch to {flip ? 'Sign Up' : 'Sign In'}
 					</div>
 				</article>
