@@ -92,7 +92,6 @@ const List = () => {
 	const removeTaskHandler = async (id) => {
 		if (auth.isLoggedIn && auth.userId) {
 			const task = toDoList.find((todo) => todo.id === id);
-			console.log(task);
 			await sendRequest(
 				`http://localhost:8080/api/tasks/${task._id}`,
 				'DELETE'
@@ -105,7 +104,16 @@ const List = () => {
 		}
 	};
 
-	const completeTaskHandler = (id) => {
+	const completeTaskHandler = async (id) => {
+		if (auth.isLoggedIn && auth.userId) {
+			const task = toDoList.find((element) => element.id === id);
+			await sendRequest(
+				`http://localhost:8080/api/tasks/`,
+				'PATCH',
+				JSON.stringify({ taskId: task._id, status: 'completed' }),
+				{ 'Content-Type': 'application/json' }
+			);
+		}
 		const index = toDoList.findIndex((element) => element.id === id);
 		const task = { ...toDoList[index] };
 		task.completed = true;
@@ -116,7 +124,16 @@ const List = () => {
 		setToDoList(newList);
 	};
 
-	const unCompleteTaskHandler = (id) => {
+	const unCompleteTaskHandler = async (id) => {
+		if (auth.isLoggedIn && auth.userId) {
+			const task = toDoList.find((element) => element.id === id);
+			await sendRequest(
+				`http://localhost:8080/api/tasks/`,
+				'PATCH',
+				JSON.stringify({ taskId: task._id, status: 'progress' }),
+				{ 'Content-Type': 'application/json' }
+			);
+		}
 		const index = toDoList.findIndex((element) => element.id === id);
 		const task = { ...toDoList[index] };
 		task.completed = false;

@@ -29,7 +29,6 @@ exports.createTask = async (req, res, next) => {
 			return next(new HttpError('Could not find User', 404));
 		}
 	} catch (error) {
-		console.log('here');
 		return next(new HttpError('Creating Task Failed', 500));
 	}
 
@@ -52,7 +51,6 @@ exports.createTask = async (req, res, next) => {
 		await user.save({ session: session });
 		await session.commitTransaction();
 	} catch (error) {
-		console.log('here');
 		return next(new HttpError('failed to create task', 500));
 	}
 
@@ -74,6 +72,32 @@ exports.getUserTasks = async (req, res, next) => {
 	}
 };
 
+exports.changeTaskStatus = async (req, res, next) => {
+	const { taskId, status } = req.body;
+	let task;
+	try {
+		task = await Task.findById(taskId);
+		if (!task) {
+			return res.status(500).json({ message: 'No Task Found' });
+		}
+		if (status === 'completed') {
+			task.completed = true;
+			task.progress = false;
+		} else if (status === 'progress') {
+			task.completed = false;
+			task.progress = true;
+		} else {
+			task.completed = false;
+			task.progress = false;
+			task.missed = true;
+		}
+		const updatedTask = await task.save();
+		return res.status(200).json({ updatedTask });
+	} catch (error) {
+		return next(new HttpError('Failed to Update task', 500));
+	}
+};
+
 exports.deleteTaskById = async (req, res, next) => {
 	const taskId = req.params.taskId;
 	let task;
@@ -81,7 +105,6 @@ exports.deleteTaskById = async (req, res, next) => {
 		const session = await mongoose.startSession();
 		session.startTransaction();
 		task = await Task.findByIdAndDelete(taskId).populate('userId');
-		console.log(task);
 		task.userId.tasks.pull(task);
 		await task.userId.save({ session: session });
 		await session.commitTransaction();
