@@ -17,13 +17,12 @@ import { AuthContext } from '../../context/AuthContext';
 import useHttpClient from '../../shared/hooks/http-hook';
 
 const List = () => {
-	const [toDoList, setToDoList] = useState([]);
-	const [showModal, setShowModal] = useState(false);
-
 	const labelContext = useContext(LabelContext);
 	const actionContext = useContext(ActionContext);
 	const auth = useContext(AuthContext);
 
+	const [toDoList, setToDoList] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 	const {
 		isLoading,
 		error,
@@ -37,6 +36,24 @@ const List = () => {
 	useEffect(() => {
 		feather.replace();
 	}, []);
+
+	useEffect(() => {
+		const getTaskList = async () => {
+			if (auth.isLoggedIn && auth.userId) {
+				const taskObject = await sendRequest(
+					`http://localhost:8080/api/tasks/${auth.userId}`
+				);
+				const taskList = [...taskObject.tasks].map((task) => ({
+					...task,
+					id: task._id,
+				}));
+				setToDoList(taskList);
+			} else {
+				setToDoList([]);
+			}
+		};
+		getTaskList();
+	}, [sendRequest, auth.isLoggedIn, auth.userId]);
 
 	const createList = (type) => {
 		if (type === '') {
@@ -55,24 +72,37 @@ const List = () => {
 	};
 
 	const AddToDoHandler = async (task) => {
-		if (auth.isLoggedIn) {
-			const todo = { ...task, userId: auth.userId };
-			const responseData = await sendRequest(
-				'http://localhost:8080/api/tasks',
-				'POST',
-				JSON.stringify(todo),
-				{ 'Content-Type': 'application/json' }
-			);
-			console.log(responseData);
-			setToDoList((prevState) => [...prevState, task]);
-		} else {
-			setToDoList((prevState) => [...prevState, task]);
-		}
+		try {
+			if (auth.isLoggedIn) {
+				const todo = { ...task, userId: auth.userId };
+				const responseData = await sendRequest(
+					'http://localhost:8080/api/tasks',
+					'POST',
+					JSON.stringify(todo),
+					{ 'Content-Type': 'application/json' }
+				);
+				const newTask = { ...responseData.newTask, id: todo.id };
+				setToDoList((prevState) => [...prevState, newTask]);
+			} else {
+				setToDoList((prevState) => [...prevState, task]);
+			}
+		} catch (error) {}
 	};
 
-	const removeTaskHandler = (id) => {
-		const newList = toDoList.filter((element) => element.id !== id);
-		setToDoList(newList);
+	const removeTaskHandler = async (id) => {
+		if (auth.isLoggedIn && auth.userId) {
+			const task = toDoList.find((todo) => todo.id === id);
+			console.log(task);
+			await sendRequest(
+				`http://localhost:8080/api/tasks/${task._id}`,
+				'DELETE'
+			);
+			const newList = toDoList.filter((element) => element.id !== id);
+			setToDoList(newList);
+		} else {
+			const newList = toDoList.filter((element) => element.id !== id);
+			setToDoList(newList);
+		}
 	};
 
 	const completeTaskHandler = (id) => {

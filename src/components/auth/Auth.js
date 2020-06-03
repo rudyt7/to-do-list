@@ -1,5 +1,5 @@
 import React, { useState, useContext, Fragment } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './Auth.css';
 
 import { AuthContext } from '../../context/AuthContext';
@@ -16,7 +16,6 @@ const validate = (value, type) => {
 		}
 	} else if (type === 'password') {
 		if (value.length >= 7) {
-			console.log(value.length);
 			return true;
 		} else {
 			return false;
@@ -116,10 +115,11 @@ const Auth = () => {
 	};
 
 	const authSubmitHandler = async (event) => {
+		let responseData;
 		event.preventDefault();
 		if (!flip) {
 			try {
-				const responseData = await sendRequest(
+				responseData = await sendRequest(
 					'http://localhost:8080/api/users/signup',
 					'POST',
 					JSON.stringify({
@@ -129,12 +129,13 @@ const Auth = () => {
 					}),
 					{ 'Content-Type': 'application/json' }
 				);
-				auth.login(responseData.user.id);
-				history.replace('/to-do-list');
 			} catch (error) {}
+			auth.login(responseData.user.id);
+			history.replace('/to-do-list');
 		} else {
+			let responseData;
 			try {
-				const responseData = await sendRequest(
+				responseData = await sendRequest(
 					'http://localhost:8080/api/users/login',
 					'POST',
 					JSON.stringify({
@@ -143,9 +144,9 @@ const Auth = () => {
 					}),
 					{ 'Content-Type': 'application/json' }
 				);
-				auth.login(responseData.user.id);
-				history.replace('/to-do-list');
 			} catch (error) {}
+			auth.login(responseData.user.id);
+			history.replace('/to-do-list');
 		}
 	};
 
@@ -156,6 +157,9 @@ const Auth = () => {
 			)}
 			{isLoading && <LoadingSpinner asOverlay />}
 			<main>
+				<Link to="/to-do-list/">
+					<div>Back</div>
+				</Link>
 				<article className="auth">
 					<div className="auth__container">
 						<div className="auth__container--signup">

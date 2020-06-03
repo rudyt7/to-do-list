@@ -46,34 +46,10 @@ const ListItem = (props) => {
 
 	const unCompleteHandler = () => {
 		props.undo(props.id);
-		// setAction('progress');
-		// if (action === 'complete') {
-		// 	const completeButton = document.getElementsByClassName('btn-complete');
-		// 	const undoButton = document.getElementsByClassName('btn-undo');
-		// 	const complete = [...completeButton];
-		// 	const undo = [...undoButton];
-		// 	undo[0].classList.toggle('disabled');
-		// 	if (actionContext.action === 'all') {
-		// 		complete[0].classList.toggle('disabled');
-		// 	}
-		// 	setAction('progress');
-		// }
 	};
 
 	const completeHandler = () => {
 		props.done(props.id);
-		// setAction('complete');
-		// if (action === 'progress') {
-		// 	const completeButton = document.getElementsByClassName('btn-complete');
-		// 	const undoButton = document.getElementsByClassName('btn-undo');
-		// 	const complete = [...completeButton];
-		// 	const undo = [...undoButton];
-		// 	complete[0].classList.toggle('disabled');
-		// 	if (actionContext.action === 'all') {
-		// 		undo[0].classList.toggle('disabled');
-		// 	}
-		// 	setAction('complete');
-		// }
 	};
 
 	const deleteHandler = () => {

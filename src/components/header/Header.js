@@ -7,6 +7,10 @@ import { AuthContext } from '../../context/AuthContext';
 const Header = (props) => {
 	const auth = useContext(AuthContext);
 
+	const logoutHandler = () => {
+		auth.logout();
+	};
+
 	return (
 		<header className="header">
 			<h1 className="header__title">Task-A-Lot</h1>
@@ -20,7 +24,7 @@ const Header = (props) => {
 			{auth.isLoggedIn && (
 				<div
 					className="header__signup--btn"
-					onClick={auth.logout}
+					onClick={logoutHandler}
 					aria-label="logout-button"
 				>
 					<i data-feather="log-out" className="header-icon"></i>

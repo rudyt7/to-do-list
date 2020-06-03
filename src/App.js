@@ -11,16 +11,16 @@ import ActionContextProvider from './context/ActionContext';
 import { AuthContext } from './context/AuthContext';
 
 const App = () => {
-	const [auth, setAuth] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [userId, setUserId] = useState(null);
 
 	const loginHandler = useCallback((uid) => {
-		setAuth(true);
+		setIsLoggedIn(true);
 		setUserId(uid);
 	}, []);
 
 	const logoutHandler = useCallback(() => {
-		setAuth(false);
+		setIsLoggedIn(false);
 		setUserId(null);
 	}, []);
 
@@ -41,33 +41,24 @@ const App = () => {
 		</main>
 	);
 
-	if (!auth.isLoggedIn) {
-		routes = (
-			<Switch>
-				<Route path="/to-do-list" exact>
-					{content}
-				</Route>
+	routes = (
+		<Switch>
+			<Route path="/to-do-list" exact>
+				{content}
+			</Route>
+			{!isLoggedIn && (
 				<Route path="/to-do-list/auth" exact>
 					<Auth />
 				</Route>
-				<Redirect to="/to-do-list" />
-			</Switch>
-		);
-	} else {
-		routes = (
-			<Switch>
-				<Route path="/to-do-list" exact>
-					{content}
-				</Route>
-				<Redirect to="/to-do-list" />
-			</Switch>
-		);
-	}
+			)}
+			<Redirect to="/to-do-list" />
+		</Switch>
+	);
 
 	return (
 		<AuthContext.Provider
 			value={{
-				isLoggedIn: auth,
+				isLoggedIn: isLoggedIn,
 				userId: userId,
 				login: loginHandler,
 				logout: logoutHandler,
