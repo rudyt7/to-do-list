@@ -59,7 +59,20 @@ exports.createTask = async (req, res, next) => {
 	res.status(201).json({ newTask });
 };
 
-exports.getAllTasks = (req, res, next) => {};
+exports.getUserTasks = async (req, res, next) => {
+	const userId = req.params.userId;
+	let tasks;
+	try {
+		tasks = await Task.find({ userId: userId });
+		if (tasks) {
+			return res.status(200).json({ tasks: tasks });
+		} else {
+			return res.status(200).json({ message: 'No Tasks Found' });
+		}
+	} catch (error) {
+		return next(new HttpError('Connection Error', 500));
+	}
+};
 
 exports.deleteTaskById = async (req, res, next) => {
 	const taskId = req.params.taskId;

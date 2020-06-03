@@ -13,6 +13,8 @@ import Tabs from '../nav/Tabs';
 
 import { LabelContext } from '../../context/LabelContext';
 import { ActionContext } from '../../context/ActionContext';
+import { AuthContext } from '../../context/AuthContext';
+import useHttpClient from '../../shared/hooks/http-hook';
 
 const List = () => {
 	const [toDoList, setToDoList] = useState([]);
@@ -20,6 +22,15 @@ const List = () => {
 
 	const labelContext = useContext(LabelContext);
 	const actionContext = useContext(ActionContext);
+	const auth = useContext(AuthContext);
+
+	const {
+		isLoading,
+		error,
+		sendRequest,
+		clearError,
+		errorModal,
+	} = useHttpClient();
 
 	let ListJsx, tasks;
 
@@ -43,8 +54,25 @@ const List = () => {
 		setShowModal(false);
 	};
 
-	const AddToDoHandler = (task) => {
-		setToDoList((prevState) => [...prevState, task]);
+	const AddToDoHandler = async (task) => {
+		if (auth.isLoggedIn) {
+			const todo = { ...task, userId: auth.userId };
+			const responseData = await sendRequest(
+				'http://localhost:8080/api/tasks',
+				'POST',
+				JSON.stringify(todo),
+				{ 'Content-Type': 'application/json' }
+			);
+			console.log(responseData);
+			setToDoList((prevState) => [...prevState, task]);
+		} else {
+			setToDoList((prevState) => [...prevState, task]);
+		}
+	};
+
+	const removeTaskHandler = (id) => {
+		const newList = toDoList.filter((element) => element.id !== id);
+		setToDoList(newList);
 	};
 
 	const completeTaskHandler = (id) => {
@@ -55,11 +83,6 @@ const List = () => {
 		const updatedTask = { ...task };
 		const newList = [...toDoList];
 		newList[index] = updatedTask;
-		setToDoList(newList);
-	};
-
-	const removeTaskHandler = (id) => {
-		const newList = toDoList.filter((element) => element.id !== id);
 		setToDoList(newList);
 	};
 

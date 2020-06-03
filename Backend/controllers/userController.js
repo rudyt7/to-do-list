@@ -47,7 +47,7 @@ exports.userLogin = async (req, res, next) => {
 	try {
 		user = await User.findOne({ email: email });
 		if (user.password === password) {
-			res.status(200).json({ message: 'successfully logged In' });
+			res.status(200).json({ user: user.toObject({ getters: true }) });
 		} else {
 			return next(new HttpError('Enter Valid Credentials', 422));
 		}

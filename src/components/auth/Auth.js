@@ -1,9 +1,11 @@
 import React, { useState, useContext, Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 import './Auth.css';
 
 import { AuthContext } from '../../context/AuthContext';
 import LoadingSpinner from '../../shared/ui/LoadingSpinner';
 import ErrorModal from '../../shared/ui/ErrorModal';
+import useHttpClient from '../../shared/hooks/http-hook';
 
 const validate = (value, type) => {
 	if (type === 'text') {
@@ -36,9 +38,16 @@ const Auth = () => {
 	const [password, setPassword] = useState(false);
 	const [loginValid, setLoginValid] = useState(false);
 	const [signUpValid, setSignUpValid] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-	const [showModal, setShowModal] = useState(false);
-	const [error, setError] = useState();
+
+	const history = useHistory();
+
+	const {
+		isLoading,
+		error,
+		sendRequest,
+		clearError,
+		errorModal,
+	} = useHttpClient();
 
 	const checkFormValid = () => {
 		if (!flip) {
@@ -103,67 +112,47 @@ const Auth = () => {
 	};
 
 	const hideModalHandler = () => {
-		setShowModal(false);
+		clearError();
 	};
 
 	const authSubmitHandler = async (event) => {
 		event.preventDefault();
-		setIsLoading(true);
 		if (!flip) {
 			try {
-				const response = await fetch('http://localhost:8080/api/users/signup', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
+				const responseData = await sendRequest(
+					'http://localhost:8080/api/users/signup',
+					'POST',
+					JSON.stringify({
 						name: document.getElementById('signupName').value,
 						email: document.getElementById('signupEmail').value,
 						password: document.getElementById('signupPassword').value,
 					}),
-				});
-				const responseData = await response.json();
-				if (!response.ok) {
-					throw new Error(responseData.message);
-				}
-				setIsLoading(false);
-				auth.login();
-			} catch (error) {
-				setIsLoading(false);
-				setError(error.message || 'An Unknown Error Occurred');
-				setShowModal(true);
-			}
+					{ 'Content-Type': 'application/json' }
+				);
+				auth.login(responseData.user.id);
+				history.replace('/to-do-list');
+			} catch (error) {}
 		} else {
 			try {
-				const response = await fetch('http://localhost:8080/api/users/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
+				const responseData = await sendRequest(
+					'http://localhost:8080/api/users/login',
+					'POST',
+					JSON.stringify({
 						email: document.getElementById('loginEmail').value,
 						password: document.getElementById('loginPassword').value,
 					}),
-				});
-				const responseData = await response.json();
-				if (!response.ok) {
-					throw new Error(responseData.message);
-				}
-				console.log(responseData);
-				setIsLoading(false);
-				auth.login();
-			} catch (error) {
-				setIsLoading(false);
-				setError(error.message || 'An Unknown Error Occurred');
-				setShowModal(true);
-			}
+					{ 'Content-Type': 'application/json' }
+				);
+				auth.login(responseData.user.id);
+				history.replace('/to-do-list');
+			} catch (error) {}
 		}
 	};
 
 	return (
 		<Fragment>
 			{error && (
-				<ErrorModal error={error} show={showModal} hide={hideModalHandler} />
+				<ErrorModal error={error} show={errorModal} hide={hideModalHandler} />
 			)}
 			{isLoading && <LoadingSpinner asOverlay />}
 			<main>

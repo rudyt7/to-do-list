@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
@@ -8,27 +8,36 @@ import List from './components/main/List';
 import Auth from './components/auth/Auth';
 import LabelContextProvider from './context/LabelContext';
 import ActionContextProvider from './context/ActionContext';
-import AuthContextProvider, { AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/AuthContext';
 
 const App = () => {
-	const auth = useContext(AuthContext);
+	const [auth, setAuth] = useState(false);
+	const [userId, setUserId] = useState(null);
+
+	const loginHandler = useCallback((uid) => {
+		setAuth(true);
+		setUserId(uid);
+	}, []);
+
+	const logoutHandler = useCallback(() => {
+		setAuth(false);
+		setUserId(null);
+	}, []);
 
 	let routes;
 	let content = (
 		<main>
-			<AuthContextProvider>
-				<div className="container">
-					<Header />
-					<div className="content">
-						<ActionContextProvider>
-							<LabelContextProvider>
-								<Nav />
-								<List />
-							</LabelContextProvider>
-						</ActionContextProvider>
-					</div>
+			<div className="container">
+				<Header />
+				<div className="content">
+					<ActionContextProvider>
+						<LabelContextProvider>
+							<Nav />
+							<List />
+						</LabelContextProvider>
+					</ActionContextProvider>
 				</div>
-			</AuthContextProvider>
+			</div>
 		</main>
 	);
 
@@ -55,7 +64,18 @@ const App = () => {
 		);
 	}
 
-	return <BrowserRouter>{routes}</BrowserRouter>;
+	return (
+		<AuthContext.Provider
+			value={{
+				isLoggedIn: auth,
+				userId: userId,
+				login: loginHandler,
+				logout: logoutHandler,
+			}}
+		>
+			<BrowserRouter>{routes}</BrowserRouter>;
+		</AuthContext.Provider>
+	);
 };
 
 export default App;
