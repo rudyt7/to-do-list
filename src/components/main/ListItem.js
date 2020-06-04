@@ -36,6 +36,12 @@ const ListItem = (props) => {
 
 	useEffect(() => {
 		feather.replace();
+	});
+
+	useEffect(() => {
+		if (props.date < new Date().toISOString().slice(0, 9)) {
+			props.miss(props.id);
+		}
 	}, []);
 
 	let listItem = null;
@@ -63,6 +69,18 @@ const ListItem = (props) => {
 					<div className="list-item__header">
 						<h1 className="list-item__title">{props.title}</h1>
 						<div className="list-item__type">{props.type}</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1.1 }}
+							transition={{
+								type: 'spring',
+								stiffness: 260,
+								damping: 20,
+							}}
+							className="list-item__chip-completed"
+						>
+							Completed
+						</motion.div>
 						{props.children && (
 							<motion.div
 								className="list-item__icon-container"
@@ -96,6 +114,7 @@ const ListItem = (props) => {
 						<div className="list-item__buttons">
 							<div
 								className="list-item__btn  btn-complete disabled"
+								disabled
 								onClick={completeHandler}
 							>
 								<i
@@ -125,6 +144,13 @@ const ListItem = (props) => {
 					<div className="list-item__header">
 						<h1 className="list-item__title">{props.title}</h1>
 						<div className="list-item__type">{props.type}</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1.1 }}
+							className="list-item__chip-completed"
+						>
+							Completed
+						</motion.div>
 						{props.children && (
 							<motion.div
 								className="list-item__icon-container"
@@ -180,6 +206,13 @@ const ListItem = (props) => {
 					<div className="list-item__header">
 						<h1 className="list-item__title">{props.title}</h1>
 						<div className="list-item__type">{props.type}</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							className="list-item__chip-progress"
+						>
+							In Progress
+						</motion.div>
 						{props.children && (
 							<motion.div
 								className="list-item__icon-container"
@@ -222,6 +255,7 @@ const ListItem = (props) => {
 							</div>
 							<div
 								className="list-item__btn  btn-undo disabled"
+								disabled
 								onClick={unCompleteHandler}
 							>
 								<i
@@ -242,6 +276,13 @@ const ListItem = (props) => {
 					<div className="list-item__header">
 						<h1 className="list-item__title">{props.title}</h1>
 						<div className="list-item__type">{props.type}</div>
+						<motion.div
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							className="list-item__chip-progress"
+						>
+							In Progress
+						</motion.div>
 						{props.children && (
 							<motion.div
 								className="list-item__icon-container"
@@ -296,6 +337,13 @@ const ListItem = (props) => {
 				<div className="list-item__header">
 					<h1 className="list-item__title">{props.title}</h1>
 					<div className="list-item__type">{props.type}</div>
+					<motion.div
+						initial={{ scale: 0 }}
+						animate={{ scale: 0.9 }}
+						className="list-item__chip-missed"
+					>
+						Missed
+					</motion.div>
 					{props.children && (
 						<motion.div
 							className="list-item__icon-container"

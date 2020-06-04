@@ -29,6 +29,7 @@ const MissedTask = (props) => {
 				date={t.date}
 				remove={props.remove}
 				complete={t.completed}
+				miss={props.miss}
 				missed={t.missed}
 				progress={t.progress}
 			>

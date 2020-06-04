@@ -40,6 +40,18 @@ const List = () => {
 	}, []);
 
 	useEffect(() => {
+		const tasks = [...toDoList];
+		tasks.forEach((task) => {
+			if (task.date < new Date().toISOString().slice(0, 10)) {
+				task.missed = true;
+				task.completed = false;
+				task.progress = false;
+			}
+		});
+		console.log(tasks);
+	}, [toDoList]);
+
+	useEffect(() => {
 		const getTaskList = async () => {
 			try {
 				if (auth.isLoggedIn && auth.userId) {
@@ -172,6 +184,32 @@ const List = () => {
 		} catch (error) {}
 	};
 
+	const missedTaskHandler = async (id) => {
+		try {
+			if (auth.isLoggedIn && auth.userId) {
+				const task = toDoList.find((element) => element.id === id);
+				await sendRequest(
+					`${process.env.REACT_APP_BACKEND_URL}/tasks/`,
+					'PATCH',
+					JSON.stringify({ taskId: task._id, status: 'missed' }),
+					{
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${auth.token}`,
+					}
+				);
+			}
+			const index = toDoList.findIndex((element) => element.id === id);
+			const task = { ...toDoList[index] };
+			task.completed = false;
+			task.progress = false;
+			task.missed = true;
+			const updatedTask = { ...task };
+			const newList = [...toDoList];
+			newList[index] = updatedTask;
+			setToDoList(newList);
+		} catch (error) {}
+	};
+
 	createList(labelContext.label);
 
 	ListJsx = tasks.map((task) => {
@@ -185,6 +223,7 @@ const List = () => {
 				done={completeTaskHandler}
 				remove={removeTaskHandler}
 				undo={unCompleteTaskHandler}
+				miss={missedTaskHandler}
 				complete={task.completed}
 				missed={task.missed}
 				progress={task.progress}
@@ -231,6 +270,7 @@ const List = () => {
 						setToDoList={setToDoList}
 						tasksList={toDoList}
 						remove={removeTaskHandler}
+						miss={missedTaskHandler}
 					/>
 				)}
 			</div>

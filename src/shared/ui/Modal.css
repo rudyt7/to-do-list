@@ -102,6 +102,54 @@
 	border-radius: 40px;
 	padding: 3rem;
 	font-family: 'Itim', cursive;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+	color: #555;
+	font-size: 18px;
+}
+
+.modal__btn-error {
+	width: 50px;
+	height: 50px;
+	margin: 15px;
+	border: 1px solid #dd6969;
+	outline: none;
+	background: linear-gradient(#db5c5c, #f56767);
+	border-radius: 50%;
+	box-shadow: inset 0 0 15px rgba(55, 84, 170, 0),
+		inset 0 0 20px rgba(255, 255, 255, 0), 7px 7px 15px rgba(170, 55, 55, 0.15),
+		-7px -7px 20px white, inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+	transition: box-shadow 299ms ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal__btn-error:hover {
+	box-shadow: inset 7px 7px 15px rgba(175, 47, 47, 0.15),
+		inset -7px -7px 20px #e64f4f, 0px 0px 4px rgba(255, 255, 255, 0.2);
+}
+
+.modal__btn-error:active {
+	border: none;
+	outline: none;
+}
+
+.modal__error-heading {
+	font-family: 'Montserrat', sans-serif;
+	color: rgb(226, 48, 48);
+	font-weight: 300;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.error-icon {
+	height: 40px;
+	width: 40px;
+	stroke-width: 1px;
 }
 
 /* .btn__add {

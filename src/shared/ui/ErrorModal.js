@@ -49,8 +49,12 @@ const ModalOverlay = (props) => {
 				initial="hidden"
 				animate="visible"
 			>
+				<h1 className="modal__error-heading">
+					<i data-feather="alert-octagon" className="error-icon"></i>
+					An Error Occured
+				</h1>
 				{props.error}
-				<button className="modal__btn-close" onClick={props.hide}>
+				<button className="modal__btn-error" onClick={props.hide}>
 					<i data-feather="x" className="x-icon"></i>
 				</button>
 			</motion.div>
