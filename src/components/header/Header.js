@@ -13,7 +13,7 @@ const Header = (props) => {
 
 	return (
 		<header className="header">
-			<h1 className="header__title">Task-A-Lot</h1>
+			<h1 className="header__title">Tasky</h1>
 			{!auth.isLoggedIn && (
 				<Link to="/to-do-list/auth">
 					<div className="header__signup--btn" aria-label="login-button">

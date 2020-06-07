@@ -7,10 +7,23 @@
 	scroll-behavior: smooth;
 }
 
+*::-webkit-scrollbar {
+	width: 5px;
+}
+*::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0);
+}
+*::-webkit-scrollbar-thumb {
+	background-color: #aaa;
+	border-radius: 20px;
+}
+
 *,
 *::before,
 *::after {
 	box-sizing: inherit;
+	scrollbar-width: thin;
+	scrollbar-color: #aaa rgba(255, 255, 255, 0);
 }
 
 html {

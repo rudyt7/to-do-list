@@ -51,11 +51,15 @@ const ListItem = (props) => {
 	};
 
 	const unCompleteHandler = () => {
-		props.undo(props.id);
+		if (!props.progress) {
+			props.undo(props.id);
+		}
 	};
 
 	const completeHandler = () => {
-		props.done(props.id);
+		if (!props.complete) {
+			props.done(props.id);
+		}
 	};
 
 	const deleteHandler = () => {
@@ -110,7 +114,10 @@ const ListItem = (props) => {
 						</AnimatePresence>
 					)}
 					<div className="list-item__footer">
-						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__date">
+							{`${props.date.slice(5, 7)}-${props.date.slice(8)}
+							-${props.date.slice(0, 4)}`}
+						</div>
 						<div className="list-item__buttons">
 							<div
 								className="list-item__btn  btn-complete disabled"
@@ -180,7 +187,10 @@ const ListItem = (props) => {
 						</AnimatePresence>
 					)}
 					<div className="list-item__footer">
-						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__date">
+							{`${props.date.slice(5, 7)}-${props.date.slice(8)}
+							-${props.date.slice(0, 4)}`}
+						</div>
 						<div className="list-item__buttons">
 							<div
 								className="list-item__btn  btn-undo"
@@ -242,7 +252,10 @@ const ListItem = (props) => {
 						</AnimatePresence>
 					)}
 					<div className="list-item__footer">
-						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__date">
+							{`${props.date.slice(5, 7)}-${props.date.slice(8)}
+							-${props.date.slice(0, 4)}`}
+						</div>
 						<div className="list-item__buttons">
 							<div
 								className="list-item__btn  btn-complete"
@@ -312,7 +325,10 @@ const ListItem = (props) => {
 						</AnimatePresence>
 					)}
 					<div className="list-item__footer">
-						<div className="list-item__date">{props.date}</div>
+						<div className="list-item__date">
+							{`${props.date.slice(5, 7)}-${props.date.slice(8)}
+							-${props.date.slice(0, 4)}`}
+						</div>
 						<div className="list-item__buttons">
 							<div
 								className="list-item__btn  btn-complete"
@@ -373,7 +389,10 @@ const ListItem = (props) => {
 					</AnimatePresence>
 				)}
 				<div className="list-item__footer">
-					<div className="list-item__date">{props.date}</div>
+					<div className="list-item__date">
+						{`${props.date.slice(5, 7)}-${props.date.slice(8)}
+							-${props.date.slice(0, 4)}`}
+					</div>
 					<div className="list-item__buttons">
 						<div className="list-item__btn" onClick={deleteHandler}>
 							<i data-feather="trash" className="icon icon-delete"></i>

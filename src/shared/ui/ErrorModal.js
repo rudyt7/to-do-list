@@ -51,7 +51,7 @@ const ModalOverlay = (props) => {
 			>
 				<h1 className="modal__error-heading">
 					<i data-feather="alert-octagon" className="error-icon"></i>
-					An Error Occured
+					An Error Occurred
 				</h1>
 				{props.error}
 				<button className="modal__btn-error" onClick={props.hide}>
